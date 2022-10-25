@@ -8,22 +8,17 @@
 
 <body>
     <header class="blog-header">
-        <h1>{{ .MetaData.Title }}</h1>
-        <time>
-            {{ .MetaData.Date.Format "Jan 02, 2006" }}
-        </time>
-        <div class="list">
-            <ul class="tagList">
-                {{ range .MetaData.Tags }}
-                <a href="?sort={{.}}" class="tag">{{.}}</a>
-                {{ end }}
-            </ul>
-        </div>
+        <h1>Mislav's Blog</h1>
     </header>
     <article class="markdown-body entry-content" style="padding: 30px;">
         {{ .Body | markDown }}
     </article>
     <footer class="blog-footer">
+        <ul class="tagList">
+            {{ range .MetaData.Tags }}
+            <div class="tag">{{.}}</div>
+            {{ end }}
+        </ul>
     </footer>
 </body>
 
