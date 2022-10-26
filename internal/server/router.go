@@ -12,6 +12,7 @@ func NewRouter() *mux.Router {
 	cssDir := "./css/"
 	router := mux.NewRouter()
 	router.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir(cssDir))))
+	router.HandleFunc("/", posts.ViewAllPosts)
 	router.HandleFunc("/blog/{pageId}", posts.PageHandler)
 	return router
 }

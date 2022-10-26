@@ -1,24 +1,28 @@
 package posts
 
 import (
+	"io"
+	"fmt"
+	"log"
+	"time"
 	"bufio"
 	"bytes"
-	"fmt"
-	"html/template"
-	"io"
-	"io/ioutil"
-	"log"
-	"net/http"
 	"strings"
-	"time"
+	"net/http"
+	"io/ioutil"
+	"html/template"
 
 	"github.com/gorilla/mux"
-	"github.com/russross/blackfriday/v2"
 )
 
 type Page struct {
 	Body     string
 	MetaData MetaData
+	Path     string
+}
+
+type Posts struct {
+	Pages  []*Page
 }
 
 type MetaData struct {
@@ -27,23 +31,30 @@ type MetaData struct {
 	Tags  []string
 }
 
-func markDowner(args ...interface{}) template.HTML {
-	return template.HTML(blackfriday.Run([]byte(fmt.Sprintf("%s", args...))))
-}
 
 func PageHandler(w http.ResponseWriter, req *http.Request) {
 	pageId := mux.Vars(req)["pageId"]
+	p := readBlogPost(fmt.Sprintf("posts/%s.md", pageId))
 
-	p := readBlogPost(fmt.Sprintf("./posts/%s.md", pageId))
+	renderFromTemplate(w, "post.html", "html/post.html", template.FuncMap{"markDown": markDowner}, p)
+}
 
 
-	html_template, _ := ioutil.ReadFile("html/post.html")
-	tmpl := template.Must(template.New("test.html").Funcs(template.FuncMap{"markDown": markDowner}).Parse(string(html_template)))
-	err := tmpl.ExecuteTemplate(w, "test.html", p)
+func ViewAllPosts(w http.ResponseWriter, req *http.Request) {
+	files, err := ioutil.ReadDir("posts")
 
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	posts := Posts{}
+
+	for _, file := range files {
+		p := readBlogPost(fmt.Sprintf("posts/%s", file.Name()))
+		posts.Pages = append(posts.Pages, p)
+	}
+
+	renderFromTemplate(w, "index.html", "html/index.html", template.FuncMap{"toURL": getUrl}, posts)
 }
 
 func readBlogPost(path string) *Page {
@@ -55,7 +66,7 @@ func readBlogPost(path string) *Page {
 
 	metaData := readMetadata(bytes.NewReader(body))
 
-	return &Page{MetaData: metaData, Body: readBody(body)}
+	return &Page{MetaData: metaData, Body: readBody(body), Path: path}
 }
 
 func readMetadata(r io.Reader) MetaData {

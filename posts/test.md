@@ -1,6 +1,10 @@
-# Hello There!
-## General Kenobi
+Test post
+2022-10-24
+dev
+---
 
-```
-So uncivilized...
+```go
+func helloWorld() {
+    fmt.Printf("%s", "hello")
+}
 ```

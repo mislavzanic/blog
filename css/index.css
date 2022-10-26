@@ -1,15 +1,30 @@
 body {
-    max-width: 960;
     margin: auto;
-    font-family: monospace;
+    font-family: "Source Code Pro", monospace;
+    font-style: normal;
+    /* font-weight: 300; */
+    background: #0f0f23;
+    color: #cccccc;
+}
+
+header div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
 }
 
 .blog-header {
     text-align: center;
     padding: 1em;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.315);
+    border-bottom: 1px solid #cccccc22;
     font-family: monospace;
-    margin-bottom: 1em;
+    margin: 2rem auto;
 }
 
 .blog-footer {
@@ -17,7 +32,6 @@ body {
     margin-top: 1em;
     line-height: 18px;
 }
-
 
 .tagList {
   display: flex;
@@ -31,9 +45,22 @@ body {
     border-radius: 0.5rem;
     list-style-type: none;
     padding: 0.4rem;
+    color: black;
+    text-decoration: none;
 }
 
 .tag::before {
     content: "#";
 }
-/* and more from github.com/shurcooL/github_flavored_markdown */
+
+.post {
+    margin: 2rem auto;
+}
+
+p img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}

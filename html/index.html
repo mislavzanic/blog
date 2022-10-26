@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{{ .MetaData.Title }}</title>
+    <title>Mislav's Blog</title>
     <link href="/css/index.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -11,14 +11,11 @@
         <h1>Mislav's Blog</h1>
     </header>
     <article class="markdown-body entry-content" style="padding: 30px;">
-        {{ .Body | markDown }}
+        {{ range .Pages }}
+        <a href="{{ .Path | toURL }}">{{ .MetaData.Title }}</a>
+        {{ end }}
     </article>
     <footer class="blog-footer">
-        <ul class="tagList">
-            {{ range .MetaData.Tags }}
-            <div class="tag">{{.}}</div>
-            {{ end }}
-        </ul>
     </footer>
 </body>
 
