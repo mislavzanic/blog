@@ -10,11 +10,29 @@
     <header class="blog-header">
         <h1>Mislav's Blog</h1>
     </header>
-    <article class="markdown-body entry-content" style="padding: 30px;">
-        {{ range .Pages }}
-        <a href="{{ .Path | toURL }}">{{ .MetaData.Title }}</a>
-        {{ end }}
-    </article>
+    <div class="content">
+        <ol class="postList">
+            {{ range .Pages }}
+            <li class="post-card">
+                <div class="postLink">
+                    <span class="title">
+                        <b><a href="{{ .Path | toURL }}" class="post-link">{{ .MetaData.Title }}</a></b>
+                    </span>
+                    <time style="font-size: 0.8em;">
+                        <i>{{ .MetaData.Date.Format "Jan 02, 2006" }}</i>
+                    </time>
+                    <ul class="tagList">
+                        {{ range .MetaData.Tags }}
+                        <u><i><a href="/by-tag/{{ . }}" class="tag">{{.}}</a></i></u>
+                        {{ end }}
+                    </ul>
+                </div>
+                <div class="summary">
+                </div>
+            </li>
+            {{ end }}
+        </ol>
+    </div>
     <footer class="blog-footer">
     </footer>
 </body>
