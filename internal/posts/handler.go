@@ -26,9 +26,11 @@ type Posts struct {
 }
 
 type MetaData struct {
-	Title string
-	Date  time.Time
-	Tags  []string
+	Title      string
+	Date       time.Time
+	Tags       []string
+	TitleImage string
+	Summary    string
 }
 
 
@@ -73,9 +75,13 @@ func readMetadata(r io.Reader) MetaData {
 	metaData := make([]string, 0)
 	scanner := bufio.NewScanner(r)
 	scanner.Split(bufio.ScanLines)
+	summary := ""
+
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line == "---" {
+			scanner.Scan()
+			summary = scanner.Text()
 			break
 		}
 		metaData = append(metaData, line)
@@ -86,7 +92,12 @@ func readMetadata(r io.Reader) MetaData {
 		log.Fatal(err)
 	}
 
-	return MetaData{Title: metaData[0], Date: date, Tags: strings.Split(metaData[2], ",")}
+	titleImage := ""
+	if len(metaData) > 3 {
+		titleImage = metaData[3]
+	}
+
+	return MetaData{Title: metaData[0], Date: date, Tags: strings.Split(metaData[2], ","), TitleImage: titleImage, Summary: summary}
 }
 
 func readBody(byteArray []byte) string {

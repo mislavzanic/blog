@@ -1,3 +1,7 @@
+body, html {
+  margin: auto;
+}
+
 body {
   font-family: "Source Code Pro", monospace;
   font-style: normal;
@@ -58,10 +62,24 @@ header div {
 }
 
 .summary {
+  max-width: 50em;
   display: flex;
   text-align: justify;
+  word-wrap: break-word;
   margin: 0 auto;
   font-size: 0.9em;
+}
+
+p {
+  margin-right: 2em;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  margin-bottom: 0px;
+}
+
+.summary p {
+  max-width: 50em;
 }
 
 .tagList {
@@ -115,4 +133,10 @@ p img {
 
 .main-link:hover {
   color: green;
+}
+
+.blogImage {
+  display: block;
+  max-width: 20rem;
+  max-height: 10rem;
 }
