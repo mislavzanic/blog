@@ -8,7 +8,7 @@
 
 <body>
     <header class="blog-header">
-        <h1>Mislav's Blog</h1>
+        <h1><a class="titleLink" href="/">Mislav's Blog</a></h1>
     </header>
     <div class="content">
         <ol class="postList">
@@ -21,14 +21,23 @@
                     <time style="font-size: 0.8em;">
                         <i>{{ .MetaData.Date.Format "Jan 02, 2006" }}</i>
                     </time>
+                    <ul class="tagList">
+                        {{ range .MetaData.Tags }}
+                        <i><a href="/by-tag/{{ . }}" class="tag" style="font-size: 0.9rem;">{{.}}</a></i>
+                        {{ end }}
+                    </ul>
                 </div>
                 <div class="summary">
+                    <div style="float:right; margin: 2rem;">
+                    {{ if .MetaData.TitleImage }}
+                    <a class="img" href="{{ .Path | toURL }}">
+                        <img class="blogImage" src="/css/images/{{ .MetaData.TitleImage }}" alt="{{ .MetaData.TitleImage }}">
+                    </a>
+                    {{ end }}
+                    </div>
                     <p>
                         {{ .MetaData.Summary }}
                     </p>
-                    {{ if .MetaData.TitleImage }}
-                    <img class="blogImage" src="/css/images/{{ .MetaData.TitleImage }}" alt="{{ .MetaData.TitleImage }}">
-                    {{ end }}
                     <div style="clear:both"></div>
                 </div>
             </li>

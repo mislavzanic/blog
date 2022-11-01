@@ -14,5 +14,6 @@ func NewRouter() *mux.Router {
 	router.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir(cssDir))))
 	router.HandleFunc("/", posts.ViewAllPosts)
 	router.HandleFunc("/blog/{pageId}", posts.PageHandler)
+	router.HandleFunc("/by-tag/{tagId}", posts.FilterByTag)
 	return router
 }

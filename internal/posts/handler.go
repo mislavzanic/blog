@@ -41,8 +41,32 @@ func PageHandler(w http.ResponseWriter, req *http.Request) {
 	renderFromTemplate(w, "post.html", "html/post.html", template.FuncMap{"markDown": markDowner}, p)
 }
 
+func FilterByTag(w http.ResponseWriter, req *http.Request) {
+	tagId := mux.Vars(req)["tagId"]
+	posts := findBlogPosts(tagId)
+
+	renderFromTemplate(w, "tags.html", "html/index.html", template.FuncMap{"toURL": getUrl}, posts)
+}
 
 func ViewAllPosts(w http.ResponseWriter, req *http.Request) {
+	posts := getAllPosts()
+	renderFromTemplate(w, "index.html", "html/index.html", template.FuncMap{"toURL": getUrl}, posts)
+}
+
+func findBlogPosts(tagId string) Posts {
+	posts := getAllPosts()
+	p := Posts{}
+	for _, post := range posts.Pages {
+		for _, tag := range post.MetaData.Tags {
+			if tagId == tag {
+				p.Pages = append(p.Pages, post)
+			}
+		}
+	}
+	return p
+}
+
+func getAllPosts() Posts {
 	files, err := ioutil.ReadDir("posts")
 
 	if err != nil {
@@ -56,7 +80,7 @@ func ViewAllPosts(w http.ResponseWriter, req *http.Request) {
 		posts.Pages = append(posts.Pages, p)
 	}
 
-	renderFromTemplate(w, "index.html", "html/index.html", template.FuncMap{"toURL": getUrl}, posts)
+	return posts
 }
 
 func readBlogPost(path string) *Page {
