@@ -34,7 +34,7 @@ func markDowner(args ...interface{}) template.HTML {
 }
 
 func getUrl(path string) string {
-	return fmt.Sprintf("/blog/%s", strings.Split(strings.Split(path, "/")[1], ".")[0])
+	return fmt.Sprintf("/blog/%s", strings.Split(strings.Split(path, "/")[2], ".")[0])
 }
 
 func renderFromTemplate(w http.ResponseWriter, templateName string, templatePath string, funcMap map[string]any, data any) {

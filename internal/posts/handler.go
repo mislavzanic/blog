@@ -1,18 +1,26 @@
 package posts
 
 import (
-	"io"
-	"fmt"
-	"log"
-	"time"
 	"bufio"
 	"bytes"
-	"strings"
-	"net/http"
-	"io/ioutil"
+	"fmt"
 	"html/template"
+	"io"
+	"os"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"strings"
+	"time"
 
 	"github.com/gorilla/mux"
+)
+
+const (
+	HTMLDIR  = "html"
+	CSSDIR   = "css"
+	GITDIR   = "BlogPosts"
+	POSTSDIR = "BlogPosts/posts"
 )
 
 type Page struct {
@@ -36,21 +44,21 @@ type MetaData struct {
 
 func PageHandler(w http.ResponseWriter, req *http.Request) {
 	pageId := mux.Vars(req)["pageId"]
-	p := readBlogPost(fmt.Sprintf("posts/%s.md", pageId))
+	p := readBlogPost(fmt.Sprintf("%s/%s.md", POSTSDIR, pageId))
 
-	renderFromTemplate(w, "post.html", "html/post.html", template.FuncMap{"markDown": markDowner}, p)
+	renderFromTemplate(w, "post.html", fmt.Sprintf("%s/post.html", HTMLDIR), template.FuncMap{"markDown": markDowner}, p)
 }
 
 func FilterByTag(w http.ResponseWriter, req *http.Request) {
 	tagId := mux.Vars(req)["tagId"]
 	posts := findBlogPosts(tagId)
 
-	renderFromTemplate(w, "tags.html", "html/index.html", template.FuncMap{"toURL": getUrl}, posts)
+	renderFromTemplate(w, "tags.html", fmt.Sprintf("%s/index.html", HTMLDIR), template.FuncMap{"toURL": getUrl}, posts)
 }
 
 func ViewAllPosts(w http.ResponseWriter, req *http.Request) {
 	posts := getAllPosts()
-	renderFromTemplate(w, "index.html", "html/index.html", template.FuncMap{"toURL": getUrl}, posts)
+	renderFromTemplate(w, "index.html", fmt.Sprintf("%s/index.html", HTMLDIR), template.FuncMap{"toURL": getUrl}, posts)
 }
 
 func findBlogPosts(tagId string) Posts {
@@ -67,7 +75,7 @@ func findBlogPosts(tagId string) Posts {
 }
 
 func getAllPosts() Posts {
-	files, err := ioutil.ReadDir("posts")
+	files, err := os.ReadDir(POSTSDIR)
 
 	if err != nil {
 		log.Fatal(err)
@@ -76,7 +84,12 @@ func getAllPosts() Posts {
 	posts := Posts{}
 
 	for _, file := range files {
-		p := readBlogPost(fmt.Sprintf("posts/%s", file.Name()))
+
+		if file.IsDir() {
+			continue
+		}
+
+		p := readBlogPost(fmt.Sprintf("%s/%s", POSTSDIR, file.Name()))
 		posts.Pages = append(posts.Pages, p)
 	}
 

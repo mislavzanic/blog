@@ -1,12 +1,10 @@
 package main
 
 import (
-	"net/http"
-	"codeberg.org/mislavzanic/main/internal/server"
+	"codeberg.org/mislavzanic/main/internal"
 )
 
 func main() {
-	r := server.NewRouter()
-	http.Handle("/", r)
-	http.ListenAndServe(":8080", nil)
+	b := internal.NewBlog()
+	b.Run()
 }

@@ -3,17 +3,19 @@ package server
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"codeberg.org/mislavzanic/main/internal/posts"
+	"codeberg.org/mislavzanic/main/internal/webhook"
+	"github.com/gorilla/mux"
 )
 
 
 func NewRouter() *mux.Router {
-	cssDir := "./css/"
+	cssDir := posts.CSSDIR
 	router := mux.NewRouter()
 	router.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir(cssDir))))
 	router.HandleFunc("/", posts.ViewAllPosts)
 	router.HandleFunc("/blog/{pageId}", posts.PageHandler)
 	router.HandleFunc("/by-tag/{tagId}", posts.FilterByTag)
+	router.HandleFunc("/api/wh", webhook.Webhook)
 	return router
 }

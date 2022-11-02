@@ -9,7 +9,6 @@ RUN go mod download
 COPY css ./css
 COPY html ./html
 COPY internal ./internal
-COPY posts ./posts
 COPY *.go ./
 
 RUN go build main.go
