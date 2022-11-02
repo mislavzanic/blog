@@ -123,7 +123,8 @@ func readMetadata(r io.Reader) MetaData {
 		}
 		metaData = append(metaData, line)
 	}
-	date, err := time.Parse("2006-01-02", metaData[1])
+
+	date, err := time.Parse("2006-01-02", strings.TrimSpace(strings.Split(metaData[1], ":")[1]))
 
 	if err != nil {
 		log.Fatal(err)
@@ -131,12 +132,24 @@ func readMetadata(r io.Reader) MetaData {
 
 	titleImage := ""
 	if len(metaData) > 3 {
-		titleImage = metaData[3]
+		titleImage = strings.TrimSpace(strings.Split(metaData[3], ":")[1])
 	}
 
-	return MetaData{Title: metaData[0], Date: date, Tags: strings.Split(metaData[2], ","), TitleImage: titleImage, Summary: summary}
+	tags := strings.Split(strings.TrimSpace(strings.Split(metaData[2], ":")[1]), ",")
+	tags = removeEmptyStrings(tags)
+	return MetaData{Title: strings.TrimSpace(strings.Split(metaData[0], ":")[1]), Date: date, Tags: tags,TitleImage: titleImage, Summary: summary}
 }
 
 func readBody(byteArray []byte) string {
 	return string(bytes.Split(byteArray, []byte("---\n"))[1])
+}
+
+func removeEmptyStrings(s []string) []string {
+	var r []string
+	for _, str := range s {
+		if str != "" {
+			r = append(r, str)
+		}
+	}
+	return r
 }
