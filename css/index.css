@@ -56,8 +56,6 @@ header div {
     text-align: justify;
     text-justify: inter-word;
     hyphens: auto;
-    display: flex;
-    flex-direction: column;
     margin-bottom: 0.5em
 }
 

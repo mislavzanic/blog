@@ -14,26 +14,26 @@
         <ol class="postList">
             {{ range .Pages }}
             <li class="post-card">
-                <div class="postLink">
-                    <span class="title">
-                        <b><a href="{{ .Path | toURL }}" class="post-link">{{ .MetaData.Title }}</a></b>
-                    </span>
-                    <time style="font-size: 0.8em;">
-                        <i>{{ .MetaData.Date.Format "Jan 02, 2006" }}</i>
-                    </time>
-                    <ul class="tagList">
-                        {{ range .MetaData.Tags }}
-                        <i><a href="/by-tag/{{ . }}" class="tag" style="font-size: 0.9rem;">{{.}}</a></i>
-                        {{ end }}
-                    </ul>
-                </div>
                 <div class="summary">
-                    <div style="float:right; margin: 2rem;">
-                    {{ if .MetaData.TitleImage }}
-                    <a class="img" href="{{ .Path | toURL }}">
-                        <img class="blogImage" src="/BlogPosts/images/{{ .MetaData.TitleImage }}" alt="{{ .MetaData.TitleImage }}">
-                    </a>
-                    {{ end }}
+                    <div style="float:right; margin-bottom: 1.5rem; margin-left: 1.5rem;">
+                        {{ if .MetaData.TitleImage }}
+                        <a class="img" href="{{ .Path | toURL }}">
+                            <img class="blogImage" src="/BlogPosts/images/{{ .MetaData.TitleImage }}" alt="{{ .MetaData.TitleImage }}">
+                        </a>
+                        {{ end }}
+                    </div>
+                    <div class="postLink">
+                        <span class="title">
+                            <b><a href="{{ .Path | toURL }}" class="post-link">{{ .MetaData.Title }}</a></b>
+                        </span>
+                        <time style="font-size: 0.8em;">
+                            <i>{{ .MetaData.Date.Format "Jan 02, 2006" }}</i>
+                        </time>
+                        <ul class="tagList">
+                            {{ range .MetaData.Tags }}
+                            <i><a href="/by-tag/{{ . }}" class="tag" style="font-size: 0.9rem;">{{.}}</a></i>
+                            {{ end }}
+                        </ul>
                     </div>
                     <p>
                         {{ .MetaData.Summary }}
