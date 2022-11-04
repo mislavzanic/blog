@@ -114,6 +114,10 @@ p img {
   width: auto;
 }
 
+.post-link {
+  color: #aaaaaa;
+}
+
 .post-link:hover {
   color: yellow;
 }
@@ -127,15 +131,15 @@ p img {
   color: yellow;
 }
 
-.post-link {
-  color: #aaaaaa;
+.tag:hover {
+  color: #e8a1a8;
 }
 
-.main-link {
+a {
   color: darkgreen;
 }
 
-.main-link:hover {
+a:hover {
   color: green;
 }
 
