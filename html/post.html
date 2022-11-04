@@ -8,19 +8,20 @@
 
 <body>
     <header class="blog-header">
+        <h1 style="margin-top: 0;"><a class="titleLink" href="/">Mislav's Blog</a></h1>
+    </header>
+    <div class="content">
         <div>
-            <h1>{{ .MetaData.Title }}</h1>
-            <time>
+            <h1 style="margin: 0; font-size: 1.7rem;">{{ .MetaData.Title }}</h1>
+            <i><time style="font-size: 0.85rem;">
                 {{ .MetaData.Date.Format "Jan 02, 2006" }}
-            </time>
+            </time></i>
             <ul class="tagList">
                 {{ range .MetaData.Tags }}
                 <i><a href="/by-tag/{{ . }}" class="tag">{{.}}</a></i>
                 {{ end }}
             </ul>
         </div>
-    </header>
-    <div class="content">
         <article class="post">
             {{ .Body | markDown }}
         </article>

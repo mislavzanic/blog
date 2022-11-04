@@ -21,8 +21,6 @@ header div {
 .content {
   max-width: 50em;
   margin: auto auto;
-  display: flex;
-  flex-direction: column;
 }
 
 .blog-header {
@@ -30,6 +28,7 @@ header div {
     padding: 1em;
     border-bottom: 1px solid #cccccc22;
     font-family: monospace;
+    font-size: 1.2rem;
     margin: 2rem auto;
 }
 
@@ -81,6 +80,7 @@ p {
 
 .tagList {
   padding: 0;
+  margin: 0;
 }
 
 .title {
@@ -89,7 +89,7 @@ p {
 
 .tag {
     color: #ffd1d8;
-    /* font-size: 0.8em; */
+    font-size: 0.8em;
 }
 
 .tag::before {
