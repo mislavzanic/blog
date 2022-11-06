@@ -43,8 +43,7 @@ header div {
 
 .post-card {
     /* border: 1px solid #cccccc22; */
-    display: flex;
-    flex-direction: column;
+    list-style-type: none;
     align-items: left;
     text-align: center;
     margin: 2rem auto;
@@ -147,4 +146,12 @@ a:hover {
   display: block;
   max-width: 20rem;
   max-height: 10rem;
+}
+
+ol {
+    list-style-type: none;
+}
+
+li {
+    list-style-type: none;
 }

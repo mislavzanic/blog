@@ -26,6 +26,7 @@
                         <span class="title">
                             <b><a href="{{ .Path | toURL }}" class="post-link">{{ .MetaData.Title }}</a></b>
                         </span>
+                        <br>
                         <time style="font-size: 0.8em;">
                             <i>{{ .MetaData.Date.Format "Jan 02, 2006" }}</i>
                         </time>
@@ -36,7 +37,7 @@
                         </ul>
                     </div>
                     <p>
-                        {{ .MetaData.Summary }}
+                        {{ .MetaData.Summary | markDown }}
                     </p>
                     <div style="clear:both"></div>
                 </div>
