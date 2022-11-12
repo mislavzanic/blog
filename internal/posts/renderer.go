@@ -24,7 +24,7 @@ func renderer() *bfchroma.Renderer {
 				Flags: blackfriday.CommonHTMLFlags,
 			}),
 		),
-		bfchroma.Style("doom-one"),
+		bfchroma.Style("solarized-dark"),
 	)
 }
 

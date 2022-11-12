@@ -10,6 +10,9 @@ body {
   margin: auto;
 }
 
+code {
+  font-size: 1.3em;
+}
 
 header div {
   display: flex;
