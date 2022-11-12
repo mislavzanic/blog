@@ -10,10 +10,11 @@ import (
 
 
 func NewRouter() *mux.Router {
-	cssDir := posts.CSSDIR
 	router := mux.NewRouter()
-	router.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir(cssDir))))
+	router.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir(posts.CSSDIR))))
 	router.PathPrefix("/BlogPosts/").Handler(http.StripPrefix("/BlogPosts/", http.FileServer(http.Dir(posts.GITDIR))))
+	router.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir(posts.JSDIR))))
+
 	router.HandleFunc("/", posts.ViewAllPosts)
 	router.HandleFunc("/blog/{pageId}", posts.PageHandler)
 	router.HandleFunc("/by-tag/{tagId}", posts.FilterByTag)

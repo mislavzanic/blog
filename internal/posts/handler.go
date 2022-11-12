@@ -11,6 +11,7 @@ import (
 const (
 	HTMLDIR  = "html"
 	CSSDIR   = "css"
+	JSDIR    = "js"
 	GITDIR   = "BlogPosts"
 	POSTSDIR = "BlogPosts/posts"
 )
