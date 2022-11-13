@@ -28,7 +28,7 @@ func FilterByTag(w http.ResponseWriter, req *http.Request) {
 	tagId := mux.Vars(req)["tagId"]
 	posts := findBlogPosts(tagId)
 
-	renderFromTemplate(w, "tags.html", fmt.Sprintf("%s/index.html", HTMLDIR), template.FuncMap{"toURL": getUrl}, posts)
+	renderFromTemplate(w, "tags.html", fmt.Sprintf("%s/index.html", HTMLDIR), template.FuncMap{"toURL": getUrl, "markDown": markDowner}, posts)
 }
 
 func ViewAllPosts(w http.ResponseWriter, req *http.Request) {

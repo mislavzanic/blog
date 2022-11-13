@@ -8,6 +8,7 @@ RUN go mod download
 
 COPY css ./css
 COPY html ./html
+COPY js ./js
 COPY internal ./internal
 COPY *.go ./
 
