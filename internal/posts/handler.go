@@ -14,6 +14,8 @@ const (
 	JSDIR    = "js"
 	GITDIR   = "BlogPosts"
 	POSTSDIR = "BlogPosts/posts"
+	ABOUTDIR = "BlogPosts/about"
+	PROJDIR  = "BlogPosts/projects"
 )
 
 
@@ -22,6 +24,12 @@ func PageHandler(w http.ResponseWriter, req *http.Request) {
 	p := readBlogPost(fmt.Sprintf("%s/%s.md", POSTSDIR, pageId))
 
 	renderFromTemplate(w, "post.html", fmt.Sprintf("%s/post.html", HTMLDIR), template.FuncMap{"markDown": markDowner}, p)
+}
+
+func AboutSection(w http.ResponseWriter, req *http.Request) {
+	p := readBlogPost(fmt.Sprintf("%s/about.md", ABOUTDIR))
+
+	renderFromTemplate(w, "post.html", fmt.Sprintf("%s/post.html", HTMLDIR), template.FuncMap{"markDown": markDowner, "afterEpoch": AfterEpoch}, p)
 }
 
 func FilterByTag(w http.ResponseWriter, req *http.Request) {

@@ -83,35 +83,43 @@ func readBlogPost(path string) *Page {
 }
 
 func readMetadata(r io.Reader) MetaData {
-	metaData := make([]string, 0)
+	metadataMap := make(map[string]string)
+	metaData := MetaData{}
 	scanner := bufio.NewScanner(r)
 	scanner.Split(bufio.ScanLines)
-	summary := ""
 
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line == "---" {
 			scanner.Scan()
-			summary = scanner.Text()
+			metaData.Summary = scanner.Text()
 			break
 		}
-		metaData = append(metaData, line)
+		keyVal := strings.Split(line, ":")
+		metadataMap[keyVal[0]] = strings.TrimSpace(keyVal[1])
 	}
 
-	date, err := time.Parse("2006-01-02", strings.TrimSpace(strings.Split(metaData[1], ":")[1]))
-
-	if err != nil {
-		log.Fatal(err)
+	if dateStr, ok := metadataMap["date"]; ok {
+		date, err := time.Parse("2006-01-02", dateStr)
+		if err != nil {
+			log.Fatal(err)
+		}
+		metaData.Date = date
 	}
 
-	titleImage := ""
-	if len(metaData) > 3 {
-		titleImage = strings.TrimSpace(strings.Split(metaData[3], ":")[1])
+	if title, ok := metadataMap["title"]; ok {
+		metaData.Title = title
 	}
 
-	tags := strings.Split(strings.TrimSpace(strings.Split(metaData[2], ":")[1]), ",")
-	tags = removeEmptyStrings(tags)
-	return MetaData{Title: strings.TrimSpace(strings.Split(metaData[0], ":")[1]), Date: date, Tags: tags,TitleImage: titleImage, Summary: summary}
+	if imgPath, ok := metadataMap["title-image"]; ok {
+		metaData.TitleImage = imgPath
+	}
+
+	if tags, ok := metadataMap["tags"]; ok {
+		metaData.Tags = removeEmptyStrings(strings.Split(tags, ","))
+	}
+
+	return metaData
 }
 
 func readBody(byteArray []byte) string {

@@ -16,6 +16,7 @@ func NewRouter() *mux.Router {
 	router.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir(posts.JSDIR))))
 
 	router.HandleFunc("/", posts.ViewAllPosts)
+	router.HandleFunc("/about", posts.AboutSection)
 	router.HandleFunc("/blog/{pageId}", posts.PageHandler)
 	router.HandleFunc("/by-tag/{tagId}", posts.FilterByTag)
 	router.HandleFunc("/api/wh", webhook.Webhook)

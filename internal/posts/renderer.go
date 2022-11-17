@@ -3,6 +3,7 @@ package posts
 import (
 	"fmt"
 	"log"
+	"time"
 	"strings"
 	"net/http"
 	"io/ioutil"
@@ -26,6 +27,10 @@ func renderer() *bfchroma.Renderer {
 		),
 		bfchroma.Style("solarized-dark"),
 	)
+}
+
+func AfterEpoch(t time.Time) bool {
+    return t.After(time.Time{})
 }
 
 func markDowner(args ...interface{}) template.HTML {
