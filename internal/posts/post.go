@@ -32,7 +32,7 @@ type MetaData struct {
 }
 
 func findBlogPosts(tagId string) Posts {
-	posts := getAllPosts()
+	posts := getAllPosts(POSTSDIR)
 	p := Posts{}
 	for _, post := range posts.Pages {
 		for _, tag := range post.MetaData.Tags {
@@ -91,8 +91,11 @@ func readMetadata(r io.Reader) MetaData {
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line == "---" {
-			scanner.Scan()
-			metaData.Summary = scanner.Text()
+			for line != "" {
+				scanner.Scan()
+				line = scanner.Text()
+				metaData.Summary += " " + line
+			}
 			break
 		}
 		keyVal := strings.Split(line, ":")
