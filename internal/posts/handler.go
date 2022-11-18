@@ -32,6 +32,11 @@ func AboutSection(w http.ResponseWriter, req *http.Request) {
 	renderFromTemplate(w, "post.html", fmt.Sprintf("%s/post.html", HTMLDIR), template.FuncMap{"markDown": markDowner, "afterEpoch": AfterEpoch}, p)
 }
 
+func ViewProjects(w http.ResponseWriter, req *http.Request) {
+	posts := getAllPosts(PROJDIR)
+	renderFromTemplate(w, "index.html", fmt.Sprintf("%s/index.html", HTMLDIR), template.FuncMap{"toURL": getUrl, "markDown": markDowner, "afterEpoch": AfterEpoch}, posts)
+}
+
 func FilterByTag(w http.ResponseWriter, req *http.Request) {
 	tagId := mux.Vars(req)["tagId"]
 	posts := findBlogPosts(tagId)
@@ -40,7 +45,7 @@ func FilterByTag(w http.ResponseWriter, req *http.Request) {
 }
 
 func ViewAllPosts(w http.ResponseWriter, req *http.Request) {
-	posts := getAllPosts()
+	posts := getAllPosts(POSTSDIR)
 	renderFromTemplate(w, "index.html", fmt.Sprintf("%s/index.html", HTMLDIR), template.FuncMap{"toURL": getUrl, "markDown": markDowner, "afterEpoch": AfterEpoch}, posts)
 }
 

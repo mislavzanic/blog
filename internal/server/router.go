@@ -17,6 +17,7 @@ func NewRouter() *mux.Router {
 
 	router.HandleFunc("/", posts.ViewAllPosts)
 	router.HandleFunc("/about", posts.AboutSection)
+	router.HandleFunc("/projects", posts.ViewProjects)
 	router.HandleFunc("/blog/{pageId}", posts.PageHandler)
 	router.HandleFunc("/by-tag/{tagId}", posts.FilterByTag)
 	router.HandleFunc("/api/wh", webhook.Webhook)

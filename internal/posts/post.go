@@ -44,8 +44,8 @@ func findBlogPosts(tagId string) Posts {
 	return p
 }
 
-func getAllPosts() Posts {
-	files, err := os.ReadDir(POSTSDIR)
+func getAllPosts(dir string) Posts {
+	files, err := os.ReadDir(dir)
 
 	if err != nil {
 		log.Fatal(err)
