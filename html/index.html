@@ -29,7 +29,7 @@
                             <b><a href="{{ .Path | toURL }}" class="post-link">{{ .MetaData.Title }}</a></b>
                         </span>
                         <br>
-                        {{ if .MetaData.Date }}
+                        {{ if afterEpoch .MetaData.Date }}
                         <time style="font-size: 0.8em;">
                             <i>{{ .MetaData.Date.Format "Jan 02, 2006" }}</i>
                         </time>

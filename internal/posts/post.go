@@ -59,7 +59,7 @@ func getAllPosts(dir string) Posts {
 			continue
 		}
 
-		p := readBlogPost(fmt.Sprintf("%s/%s", POSTSDIR, file.Name()))
+		p := readBlogPost(fmt.Sprintf("%s/%s", dir, file.Name()))
 		posts.Pages = append(posts.Pages, p)
 	}
 
