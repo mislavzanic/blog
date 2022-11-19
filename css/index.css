@@ -3,7 +3,9 @@ body, html {
 }
 
 body {
-  font-family: "Source Code Pro", monospace;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif, monospace;
+  font-size: 1.1em;
+ /* font-family: "Source Code Pro", monospace; */
   font-style: normal;
   background: #0f0f23;
   color: #cccccc;
@@ -11,7 +13,10 @@ body {
 }
 
 code {
-  font-size: 1.3em;
+  font-size: 1.1em;
+  background: #002b36;
+  border-radius: 0.15em;
+  color: #93a1a1;
 }
 
 header div {
@@ -104,8 +109,7 @@ p {
 
 .postList {
   padding: 0;
-  /* display: flex; */
-  /* flex-direction: row; */
+  list-style-type: none;
 }
 
 p img {
@@ -151,10 +155,3 @@ a:hover {
   max-height: 10rem;
 }
 
-ol {
-    list-style-type: none;
-}
-
-li {
-    list-style-type: none;
-}
