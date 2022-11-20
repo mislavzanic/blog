@@ -33,18 +33,18 @@ func AfterEpoch(t time.Time) bool {
     return t.After(time.Time{})
 }
 
-func markDowner(args ...interface{}) template.HTML {
+func ToMarkdown(args ...interface{}) template.HTML {
 	content := blackfriday.Run([]byte(fmt.Sprintf("%s", args...)), blackfriday.WithRenderer(renderer()), blackfriday.WithExtensions(blackfriday.CommonExtensions))
 	return template.HTML(content)
 }
 
-func getUrl(uri string) func(string) string {
+func GetUrl(uri string) func(string) string {
 	return func(path string) string {
 		return fmt.Sprintf("/%s/%s", uri, strings.Split(strings.Split(path, "/")[2], ".")[0])
 	}
 }
 
-func renderFromTemplate(w http.ResponseWriter, templateName string, templatePath string, funcMap map[string]any, data any) {
+func RenderFromTemplate(w http.ResponseWriter, templateName string, templatePath string, funcMap map[string]any, data any) {
 	html_template, _ := ioutil.ReadFile(templatePath)
 	t := template.New(templateName)
 

@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"codeberg.org/mislavzanic/main/internal/posts"
+	"codeberg.org/mislavzanic/main/internal/handlers"
 	"codeberg.org/mislavzanic/main/internal/server"
 
 	"net/http"
@@ -24,8 +24,8 @@ func NewBlog() *Blog {
 }
 
 func (b *Blog) Run() {
-	if _, err := os.Stat(posts.GITDIR); os.IsNotExist(err) {
-		if _, err := git.PlainClone(posts.GITDIR, false, &git.CloneOptions{
+	if _, err := os.Stat(handlers.GITDIR); os.IsNotExist(err) {
+		if _, err := git.PlainClone(handlers.GITDIR, false, &git.CloneOptions{
 			URL:      "https://codeberg.org/mislavzanic/BlogPosts",
 			Progress: os.Stdout,
 		}); err != nil {

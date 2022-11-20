@@ -1,14 +1,15 @@
 package posts
 
 import (
-	"fmt"
-	"strings"
 	"bytes"
-	"sort"
-	"time"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
+	"sort"
+	"strings"
+	"time"
+
 	"gopkg.in/yaml.v2"
 )
 
@@ -30,8 +31,8 @@ type MetaData struct {
 	TitleImage string    `yaml:"title-image"`
 }
 
-func findBlogPosts(tagId string) Posts {
-	posts := getAllPosts(POSTSDIR)
+func FindBlogPosts(tagId, dir string) Posts {
+	posts := GetAllPosts(dir)
 	p := Posts{}
 	for _, post := range posts.Pages {
 		for _, tag := range post.MetaData.Tags {
@@ -43,14 +44,13 @@ func findBlogPosts(tagId string) Posts {
 	return p
 }
 
-func getAllPosts(dir string) Posts {
+func GetAllPosts(dir string) Posts {
 	files, err := os.ReadDir(dir)
+	posts := Posts{}
 
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	posts := Posts{}
 
 	for _, file := range files {
 
@@ -58,7 +58,7 @@ func getAllPosts(dir string) Posts {
 			continue
 		}
 
-		p := readBlogPost(fmt.Sprintf("%s/%s", dir, file.Name()))
+		p := ReadBlogPost(fmt.Sprintf("%s/%s", dir, file.Name()))
 		posts.Pages = append(posts.Pages, p)
 	}
 
@@ -69,7 +69,7 @@ func getAllPosts(dir string) Posts {
 	return posts
 }
 
-func readBlogPost(path string) *Page {
+func ReadBlogPost(path string) *Page {
 	body, err := ioutil.ReadFile(path)
 
 	if err != nil {
