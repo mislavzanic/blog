@@ -23,7 +23,7 @@ func PageHandler(w http.ResponseWriter, req *http.Request) {
 	pageId := mux.Vars(req)["pageId"]
 	p := readBlogPost(fmt.Sprintf("%s/%s.md", POSTSDIR, pageId))
 
-	renderFromTemplate(w, "post.html", fmt.Sprintf("%s/post.html", HTMLDIR), template.FuncMap{"markDown": markDowner, "afterEpoch": AfterEpoch}, p)
+	renderFromTemplate(w, "post.html", fmt.Sprintf("%s/post.html", HTMLDIR), template.FuncMap{"toURL": getUrl("blog"), "markDown": markDowner, "afterEpoch": AfterEpoch}, p)
 }
 
 func AboutSection(w http.ResponseWriter, req *http.Request) {

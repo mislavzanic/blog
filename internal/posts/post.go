@@ -2,19 +2,19 @@ package posts
 
 import (
 	"fmt"
-	"bufio"
+	"strings"
+	"bytes"
 	"sort"
 	"time"
-	"bytes"
-	"io"
-	"os"
 	"io/ioutil"
 	"log"
-	"strings"
+	"os"
+	"gopkg.in/yaml.v2"
 )
 
 type Page struct {
 	Body     string
+	Summary  string
 	MetaData MetaData
 	Path     string
 }
@@ -24,11 +24,10 @@ type Posts struct {
 }
 
 type MetaData struct {
-	Title      string
-	Date       time.Time
-	Tags       []string
-	TitleImage string
-	Summary    string
+	Title      string    `yaml:"title"`
+	Date       time.Time `yaml:"date"`
+	Tags       []string  `yaml:"tags"`
+	TitleImage string    `yaml:"title-image"`
 }
 
 func findBlogPosts(tagId string) Posts {
@@ -77,64 +76,25 @@ func readBlogPost(path string) *Page {
 		log.Fatal(err)
 	}
 
-	metaData := readMetadata(bytes.NewReader(body))
+	metaData := readMetadata(body)
+	postBody, summary := readBody(body)
 
-	return &Page{MetaData: metaData, Body: readBody(body), Path: path}
+	return &Page{MetaData: metaData, Body: postBody, Summary: summary, Path: path}
 }
 
-func readMetadata(r io.Reader) MetaData {
-	metadataMap := make(map[string]string)
-	metaData := MetaData{}
-	scanner := bufio.NewScanner(r)
-	scanner.Split(bufio.ScanLines)
+func readMetadata(body []byte) MetaData {
+	yamlPart := bytes.Split(body, []byte("---\n"))[0]
 
-	for scanner.Scan() {
-		line := scanner.Text()
-		if line == "---" {
-			for line != "" {
-				scanner.Scan()
-				line = scanner.Text()
-				metaData.Summary += " " + line
-			}
-			break
-		}
-		keyVal := strings.Split(line, ":")
-		metadataMap[keyVal[0]] = strings.TrimSpace(keyVal[1])
+	var metadata MetaData
+	if err := yaml.Unmarshal(yamlPart, &metadata); err != nil {
+		log.Fatal(err)
 	}
 
-	if dateStr, ok := metadataMap["date"]; ok {
-		date, err := time.Parse("2006-01-02", dateStr)
-		if err != nil {
-			log.Fatal(err)
-		}
-		metaData.Date = date
-	}
-
-	if title, ok := metadataMap["title"]; ok {
-		metaData.Title = title
-	}
-
-	if imgPath, ok := metadataMap["title-image"]; ok {
-		metaData.TitleImage = imgPath
-	}
-
-	if tags, ok := metadataMap["tags"]; ok {
-		metaData.Tags = removeEmptyStrings(strings.Split(tags, ","))
-	}
-
-	return metaData
+	return metadata
 }
 
-func readBody(byteArray []byte) string {
-	return string(bytes.Split(byteArray, []byte("---\n"))[1])
-}
-
-func removeEmptyStrings(s []string) []string {
-	var r []string
-	for _, str := range s {
-		if str != "" {
-			r = append(r, str)
-		}
-	}
-	return r
+func readBody(byteArray []byte) (string, string) {
+	body := string(bytes.Split(byteArray, []byte("---\n"))[1])
+	summary := strings.Split(body, "\n\n")[0]
+	return body, summary
 }
