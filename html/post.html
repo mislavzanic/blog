@@ -29,6 +29,7 @@
                 <i><a href="/by-tag/{{ . }}" class="tag">{{.}}</a></i>
                 {{ end }}
             </ul>
+            <i><p style="font-size: 0.85rem;">A {{ .ReadTime }} minute read.</p></i>
         </div>
         <article class="post">
             {{ .Body | markDown }}

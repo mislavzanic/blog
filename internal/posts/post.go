@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -16,6 +17,7 @@ import (
 type Page struct {
 	Body     string
 	Summary  string
+	ReadTime string
 	MetaData MetaData
 	Path     string
 }
@@ -79,7 +81,7 @@ func ReadBlogPost(path string) *Page {
 	metaData := readMetadata(body)
 	postBody, summary := readBody(body)
 
-	return &Page{MetaData: metaData, Body: postBody, Summary: summary, Path: path}
+	return &Page{MetaData: metaData, Body: postBody, Summary: summary, Path: path, ReadTime: strconv.Itoa((len(strings.Fields(postBody)) / 300) + 1)}
 }
 
 func readMetadata(body []byte) MetaData {
