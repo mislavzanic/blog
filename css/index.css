@@ -7,7 +7,7 @@ body {
   font-size: 1.1em;
  /* font-family: "Source Code Pro", monospace; */
   font-style: normal;
-  background: #0f0f23;
+  background: #000;
   color: #cccccc;
   margin: auto;
 }
@@ -34,7 +34,7 @@ header div {
 .blog-header {
     text-align: center;
     padding: 1em;
-    border-bottom: 1px solid #cccccc22;
+    border-bottom: 1px solid #ffffff33;
     font-family: monospace;
     font-size: 1.05rem;
     margin: 1rem auto;
@@ -46,7 +46,7 @@ header div {
     padding: 1em;
     font-family: "Source Code Pro", monospace;
     font-style: normal;
-    border-top: 1px solid #cccccc22;
+    border-top: 1px solid #ffffff33;
 }
 
 .post-card {
