@@ -1,6 +1,16 @@
 :root {
-  --dark-read-warm-color: #f5d0a5;
-  --dark-read-link-hover: #d5a075;
+  --darkreader-text--modus-themes-color-warm: #f5d0a5;
+  --darkreader-text--modus-themes-color-warm-hover: #d5a075;
+  --darkreader-text--modus-themes-color-cold: #a4deff;
+  --darkreader-text--modus-themes-color-mild: #a4deff;
+  --darkreader-text--modus-themes-color-blue: #1dc8ff;
+  --darkreader-text--modus-themes-color-blue-alt: #69b4ff;
+  --darkreader-text--modus-themes-color-cyan: #38fffc;
+  --darkreader-text--modus-themes-color-calm: #f8b4eb;
+  --darkreader-text--modus-themes-color-baselinkfg: var(--darkreader-text--modus-themes-color-blue);
+  --darkreader-text--modus-themes-color-baselinkfgalt: var(--darkreader-text--modus-themes-color-cyan);
+  --darkreader-bg--modus-themes-color-baselinkfghover: var(--darkreader-bg--modus-themes-color-blue-alt);
+  --code-bg: #1f1f24;
 }
 
 body, html {
@@ -19,7 +29,7 @@ body {
 
 code {
   font-size: 1.1em;
-  background: #002b36;
+  background: var(--code-bg);
   border-radius: 0.15em;
   color: #93a1a1;
 }
@@ -100,7 +110,7 @@ p {
 }
 
 .tag {
-    color: #ffd1d8;
+    color: var(--darkreader-text--modus-themes-color-calm);
     font-size: 0.8em;
 }
 
@@ -110,6 +120,22 @@ p {
 
 .post {
     margin: 2rem auto;
+}
+
+.content h1 {
+  color: #ffffff;
+}
+
+.content h2 {
+  color: var(--darkreader-text--modus-themes-color-warm);
+}
+
+.content h3 {
+  color: var(--darkreader-text--modus-themes-color-cold);
+}
+
+.content h4 {
+  color: var(--darkreader-text--modus-themes-color-mild);
 }
 
 .postList {
@@ -126,20 +152,20 @@ p img {
 }
 
 .post-link {
-  color: var(--dark-read-warm-color);
+  color: var(--darkreader-text--modus-themes-color-warm);
 }
 
 .post-link:hover {
-  color: var(--dark-read-link-hover);
+  color: var(--darkreader-text--modus-themes-color-warm-hover);
 }
 
 .titleLink {
-  color: #cccccc;
+  color: #ffffff;
   text-decoration: none;
 }
 
 .titleLink:hover {
-  color: yellow;
+  color: var(--darkreader-text--modus-themes-color-warm-hover);
 }
 
 .tag:hover {
@@ -147,11 +173,11 @@ p img {
 }
 
 a {
-  color: darkgreen;
+  color: var(--darkreader-text--modus-themes-color-baselinkfg);
 }
 
 a:hover {
-  color: green;
+  color: var(--darkreader-text--modus-themes-color-baselinkfgalt);
 }
 
 .blogImage {
