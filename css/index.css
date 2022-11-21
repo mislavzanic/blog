@@ -1,3 +1,8 @@
+:root {
+  --dark-read-warm-color: #f5d0a5;
+  --dark-read-link-hover: #d5a075;
+}
+
 body, html {
   margin: auto;
 }
@@ -121,11 +126,11 @@ p img {
 }
 
 .post-link {
-  color: #aaaaaa;
+  color: var(--dark-read-warm-color);
 }
 
 .post-link:hover {
-  color: yellow;
+  color: var(--dark-read-link-hover);
 }
 
 .titleLink {

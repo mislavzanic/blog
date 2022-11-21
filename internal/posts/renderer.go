@@ -25,7 +25,7 @@ func renderer() *bfchroma.Renderer {
 				Flags: blackfriday.CommonHTMLFlags,
 			}),
 		),
-		bfchroma.Style("solarized-dark"),
+		bfchroma.Style("xcode-dark"),
 	)
 }
 
