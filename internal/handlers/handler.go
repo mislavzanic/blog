@@ -14,10 +14,10 @@ const (
 	HTMLDIR  = "html"
 	CSSDIR   = "css"
 	JSDIR    = "js"
-	GITDIR   = "BlogPosts"
-	POSTSDIR = "BlogPosts/posts"
-	ABOUTDIR = "BlogPosts/about"
-	PROJDIR  = "BlogPosts/projects"
+	GITDIR   = "blog"
+	POSTSDIR = "blog/posts"
+	ABOUTDIR = "blog/about"
+	PROJDIR  = "blog/projects"
 )
 
 
@@ -35,7 +35,7 @@ func (s Site) PageHandler(w http.ResponseWriter, req *http.Request) {
 		"post.html",
 		fmt.Sprintf("%s/post.html", HTMLDIR),
 		template.FuncMap{
-			"toURL": posts.GetUrl("blog"),
+			"toURL": posts.GetUrl("posts"),
 			"markDown": posts.ToMarkdown,
 			"afterEpoch": posts.AfterEpoch,
 		},
@@ -65,7 +65,7 @@ func (s Site) FilterByTag(w http.ResponseWriter, req *http.Request) {
 	tagId := mux.Vars(req)["tagId"]
 	allPosts := posts.FindBlogPosts(tagId, POSTSDIR)
 
-	posts.RenderFromTemplate(w, "tags.html", fmt.Sprintf("%s/index.html", HTMLDIR), template.FuncMap{"toURL": posts.GetUrl("blog"), "markDown": posts.ToMarkdown, "afterEpoch": posts.AfterEpoch}, allPosts)
+	posts.RenderFromTemplate(w, "tags.html", fmt.Sprintf("%s/index.html", HTMLDIR), template.FuncMap{"toURL": posts.GetUrl("posts"), "markDown": posts.ToMarkdown, "afterEpoch": posts.AfterEpoch}, allPosts)
 }
 
 func (s Site) ViewAllPosts(w http.ResponseWriter, req *http.Request) {
@@ -73,7 +73,7 @@ func (s Site) ViewAllPosts(w http.ResponseWriter, req *http.Request) {
 		w, "index.html",
 		fmt.Sprintf("%s/index.html", HTMLDIR),
 		template.FuncMap{
-			"toURL": posts.GetUrl("blog"),
+			"toURL": posts.GetUrl("posts"),
 			"markDown": posts.ToMarkdown,
 			"afterEpoch": posts.AfterEpoch,
 		},

@@ -10,6 +10,7 @@ COPY css ./css
 COPY html ./html
 COPY js ./js
 COPY internal ./internal
+COPY blog ./blog
 COPY *.go ./
 
 RUN go build main.go
