@@ -42,7 +42,7 @@ That is, once you get used to it, it is a pain to configure at first.
 
 Here is an example:
 
-![Image of Windows](/BlogPosts/images/windows.png "Image of Windows")
+![Image of Windows](/blog/images/windows.png "Image of Windows")
 
 Speaking of configuration, there are a couple of ways to configure xmonad.
 The simplest way is to install the xmonad package and use `xmonad.hs` file.
