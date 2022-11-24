@@ -9,7 +9,7 @@ RUN go mod download
 COPY css ./css
 COPY html ./html
 COPY js ./js
-COPY internal ./internal
+COPY src ./src
 COPY blog ./blog
 COPY *.go ./
 

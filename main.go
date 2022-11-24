@@ -1,10 +1,10 @@
 package main
 
 import (
-	"codeberg.org/mislavzanic/main/internal"
+	"github.com/mislavzanic/blog/src"
 )
 
 func main() {
-	b := internal.NewBlog()
+	b := blog.NewBlog()
 	b.Run()
 }

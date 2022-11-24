@@ -1,12 +1,12 @@
-package internal
+package blog
 
 import (
-	"codeberg.org/mislavzanic/main/internal/handlers"
-	"codeberg.org/mislavzanic/main/internal/server"
-
 	"net/http"
 
 	"github.com/gorilla/mux"
+
+	"github.com/mislavzanic/blog/src/app"
+	"github.com/mislavzanic/blog/src/server"
 )
 
 type Blog struct {
@@ -14,7 +14,7 @@ type Blog struct {
 }
 
 func NewBlog() *Blog {
-	site := handlers.LoadSite()
+	site := app.LoadSite()
 
 	return &Blog{
 		router: server.NewRouter(site),

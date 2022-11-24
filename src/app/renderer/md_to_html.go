@@ -1,17 +1,14 @@
-package posts
+package renderer
 
 import (
 	"fmt"
-	"log"
 	"time"
 	"strings"
-	"net/http"
-	"io/ioutil"
 	"html/template"
 
-	"github.com/Depado/bfchroma"
-	"github.com/russross/blackfriday/v2"
 	"github.com/alecthomas/chroma/formatters/html"
+	"github.com/russross/blackfriday/v2"
+	"github.com/Depado/bfchroma"
 )
 
 func renderer() *bfchroma.Renderer {
@@ -34,7 +31,13 @@ func AfterEpoch(t time.Time) bool {
 }
 
 func ToMarkdown(args ...interface{}) template.HTML {
-	content := blackfriday.Run([]byte(fmt.Sprintf("%s", args...)), blackfriday.WithRenderer(renderer()), blackfriday.WithExtensions(blackfriday.CommonExtensions))
+	content := blackfriday.Run(
+		[]byte(
+			fmt.Sprintf("%s", args...),
+		),
+		blackfriday.WithRenderer(renderer()),
+		blackfriday.WithExtensions(blackfriday.CommonExtensions),
+	)
 	return template.HTML(content)
 }
 
@@ -44,17 +47,3 @@ func GetUrl(uri string) func(string) string {
 	}
 }
 
-func RenderFromTemplate(w http.ResponseWriter, templateName string, templatePath string, funcMap map[string]any, data any) {
-	html_template, _ := ioutil.ReadFile(templatePath)
-	t := template.New(templateName)
-
-	if funcMap != nil {
-		t.Funcs(funcMap)
-	}
-
-	tmpl := template.Must(t.Parse(string(html_template)))
-
-    if err := tmpl.ExecuteTemplate(w, templateName, data); err != nil {
-		log.Fatal(err)
-	}
-}

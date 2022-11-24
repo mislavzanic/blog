@@ -24,6 +24,7 @@ type Page struct {
 
 type Posts struct {
 	Pages  []*Page
+	Uri    string
 }
 
 type MetaData struct {
@@ -34,22 +35,23 @@ type MetaData struct {
 	Link       string    `yaml:"link"`
 }
 
-func FindBlogPosts(tagId, dir string) Posts {
-	posts := GetAllPosts(dir)
-	p := Posts{}
-	for _, post := range posts.Pages {
+func (p Posts) FindBlogPosts(tagId string) Posts {
+	index := Posts{}
+	index.Uri = p.Uri
+	for _, post := range p.Pages {
 		for _, tag := range post.MetaData.Tags {
 			if tagId == tag {
-				p.Pages = append(p.Pages, post)
+				index.Pages = append(index.Pages, post)
 			}
 		}
 	}
-	return p
+	return index
 }
 
 func GetAllPosts(dir string) Posts {
 	files, err := os.ReadDir(dir)
 	posts := Posts{}
+	posts.Uri = strings.Split(dir, "/")[1]
 
 	if err != nil {
 		log.Fatal(err)
