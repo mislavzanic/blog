@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>{{ .MetaData.Title }}</title>
-    <link href="/css/index.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" id="MathJax-script" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.0/es5/latest?tex-mml-chtml.js">
-    </script>
-</head>
-
+{{ template "head" }}
 <body>
+    {{ if .MetaData.Latex }}
     <script src="/js/load-mathjax.js"></script>
-    <header class="blog-header">
-        <h1 style="margin-top: 0;"><a class="titleLink" href="/">Mislav's Blog</a></h1>
-        <a class="titleLink" href="/about"><u>About</u></a>
-        <a class="titleLink" href="/projects"><u>Projects</u></a>
-    </header>
+    {{ end }}
+    {{ template "header" }}
     <div class="content">
         <div>
             <h1 style="margin: 0; font-size: 1.7rem;">{{ .MetaData.Title }}</h1>
@@ -35,9 +23,7 @@
             {{ .Body | markDown }}
         </article>
     </div>
-    <footer class="blog-footer">
-        <a href="/" class="main-link">Back to main page</a>
-    </footer>
+    {{ template "footer" }}
 </body>
 
 </html>

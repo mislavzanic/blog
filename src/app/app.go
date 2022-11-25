@@ -50,7 +50,7 @@ func (s Site) RenderIndex(w http.ResponseWriter, index posts.Posts) {
 	renderer.RenderFromTemplate(
 		w,
 		"index.html",
-		"html/index.html",
+		[]string{"html/index.html", "html/head.html", "html/header.html", "html/footer.html"},
 		template.FuncMap{
 			"toURL": renderer.GetUrl(index.Uri),
 			"markDown": renderer.ToMarkdown,
@@ -74,7 +74,7 @@ func (s Site) RenderPage(w http.ResponseWriter, path string) {
 	renderer.RenderFromTemplate(
 		w,
 		"post.html",
-		"html/post.html",
+		[]string{"html/post.html", "html/header.html", "html/footer.html", "html/head.html"},
 		template.FuncMap{
 			"toURL": renderer.GetUrl("posts"),
 			"markDown": renderer.ToMarkdown,

@@ -16,10 +16,12 @@ func NewRouter(site app.Site) *mux.Router {
 	router.PathPrefix("/blog/").Handler(http.StripPrefix("/blog/", http.FileServer(http.Dir("blog"))))
 	router.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir(handlers.JSDIR))))
 
+	// router.HandleFunc("/", handlers.MainPage(site))
 	router.HandleFunc("/", handlers.ViewAllPosts(site))
 	router.HandleFunc("/about", handlers.AboutSection(site))
 	router.HandleFunc("/projects", handlers.ViewProjects(site))
 	router.HandleFunc("/posts/{pageId}", handlers.PageHandler(site))
 	router.HandleFunc("/by-tag/{tagId}", handlers.FilterByTag(site))
+
 	return router
 }

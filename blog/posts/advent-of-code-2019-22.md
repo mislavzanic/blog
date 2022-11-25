@@ -5,6 +5,7 @@ tags:
   - adventofcode
   - math
 title-image: aoc.jpg
+latex: true
 ---
 I love Advent of code.
 It's an annual event for everyone who likes coding and problem-solving or wants to learn those two things.

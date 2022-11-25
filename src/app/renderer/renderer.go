@@ -2,28 +2,22 @@ package renderer
 
 import (
 	"html/template"
-	"io/ioutil"
 	"log"
 	"net/http"
 )
 
 
-func RenderFromTemplate(w http.ResponseWriter, templateName string, templatePath string, funcMap map[string]any, data any) {
-	html_template, err := ioutil.ReadFile(templatePath)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
+func RenderFromTemplate(w http.ResponseWriter, templateName string, templates []string, funcMap map[string]any, data any) {
 	t := template.New(templateName)
 
 	if funcMap != nil {
 		t.Funcs(funcMap)
 	}
 
-	tmpl := template.Must(t.Parse(string(html_template)))
+	tmpl := template.Must(t.ParseFiles(templates...))
 
-    if err = tmpl.ExecuteTemplate(w, templateName, data); err != nil {
+
+    if err := tmpl.ExecuteTemplate(w, templateName, data); err != nil {
 		log.Fatal(err)
 	}
 }

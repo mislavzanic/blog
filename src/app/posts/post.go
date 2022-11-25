@@ -33,6 +33,7 @@ type MetaData struct {
 	Tags       []string  `yaml:"tags"`
 	TitleImage string    `yaml:"title-image"`
 	Link       string    `yaml:"link"`
+	Latex      bool      `yaml:"latex"`
 }
 
 func (p Posts) FindBlogPosts(tagId string) Posts {
