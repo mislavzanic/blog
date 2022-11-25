@@ -17,7 +17,9 @@
                 <i><a href="/by-tag/{{ . }}" class="tag">{{.}}</a></i>
                 {{ end }}
             </ul>
+            {{ if ne .MetaData.Title "About" }}
             <i><p style="font-size: 0.85rem;">A {{ .ReadTime }} minute read.</p></i>
+            {{ end }}
         </div>
         <article class="post">
             {{ .Body | markDown }}
