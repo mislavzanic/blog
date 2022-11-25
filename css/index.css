@@ -42,7 +42,7 @@ header div {
 }
 
 .content {
-  max-width: 50em;
+  max-width: 65rem;
   margin: auto auto;
 }
 
@@ -81,11 +81,11 @@ header div {
 }
 
 .summary {
-  max-width: 50em;
+  max-width: 65em;
   text-align: justify;
   word-wrap: break-word;
   margin: 0 auto;
-  font-size: 0.9em;
+  font-size: l.0em;
 }
 
 p {
@@ -97,7 +97,7 @@ p {
 }
 
 .summary p {
-  max-width: 50em;
+  max-width: 65em;
 }
 
 .tagList {
