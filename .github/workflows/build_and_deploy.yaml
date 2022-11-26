@@ -19,3 +19,5 @@ jobs:
     - name: Push Image
       run: |
         nix run ".#upload-script"
+      env:
+        USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}

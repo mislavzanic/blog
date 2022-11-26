@@ -82,7 +82,7 @@
             set -eu
             nix build .#docker
             docker load < result
-            docker push $DOCKER_HUB_USERNAME/blog:dev
+            docker push $USERNAME/blog:dev
           '';
         in {
           upload-script = flake-utils.lib.mkApp { drv = upload-script; };
