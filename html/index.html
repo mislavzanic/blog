@@ -3,9 +3,9 @@
     {{ template "header" }}
     <div class="content">
         <ol class="tagList">
-            Tagged:
+            <i>Tagged:</i>
             {{ range .AllTags }}
-            <a href="/by-tag/{{ . }}" class="tag">{{ . }}</a>
+            <i><a href="/by-tag/{{ . }}" class="tag">{{ . }}</a></i>
             {{ end }}
         </ol>
         <ol class="postList">
