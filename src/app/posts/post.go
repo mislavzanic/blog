@@ -14,6 +14,9 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+type void struct{}
+type set map[string]void
+
 type Page struct {
 	Body     string
 	Summary  string
@@ -23,8 +26,9 @@ type Page struct {
 }
 
 type Posts struct {
-	Pages  []*Page
-	Uri    string
+	Pages   []*Page
+	Uri     string
+	AllTags []string
 }
 
 type MetaData struct {
@@ -38,6 +42,7 @@ type MetaData struct {
 
 func (p Posts) FindBlogPosts(tagId string) Posts {
 	index := Posts{}
+	index.AllTags = p.AllTags
 	index.Uri = p.Uri
 	for _, post := range p.Pages {
 		for _, tag := range post.MetaData.Tags {
@@ -52,6 +57,7 @@ func (p Posts) FindBlogPosts(tagId string) Posts {
 func GetAllPosts(dir string) Posts {
 	files, err := os.ReadDir(dir)
 	posts := Posts{}
+	tags := make(map[string]struct{})
 	posts.Uri = strings.Split(dir, "/")[1]
 
 	if err != nil {
@@ -65,11 +71,23 @@ func GetAllPosts(dir string) Posts {
 		}
 
 		p := ReadBlogPost(fmt.Sprintf("%s/%s", dir, file.Name()))
+		for _, tag := range p.MetaData.Tags {
+			tags[tag] = void{};
+		}
 		posts.Pages = append(posts.Pages, p)
 	}
 
 	sort.Slice(posts.Pages, func(i, j int) bool {
 		return posts.Pages[i].MetaData.Date.After(posts.Pages[j].MetaData.Date)
+	})
+
+	posts.AllTags = make([]string, 0, len(tags))
+	for tag := range tags {
+		posts.AllTags = append(posts.AllTags, tag)
+	}
+
+	sort.Slice(posts.AllTags, func(i, j int) bool {
+		return posts.AllTags[i] < posts.AllTags[j]
 	})
 
 	return posts

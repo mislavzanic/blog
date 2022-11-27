@@ -2,6 +2,12 @@
 <body>
     {{ template "header" }}
     <div class="content">
+        <ol class="tagList">
+            Tagged:
+            {{ range .AllTags }}
+            <a href="/by-tag/{{ . }}" class="tag">{{ . }}</a>
+            {{ end }}
+        </ol>
         <ol class="postList">
             {{ range .Pages }}
             <li class="post-card">
@@ -9,7 +15,7 @@
                     <div style="float:right; margin-bottom: 1.5rem; margin-left: 1.5rem;">
                         {{ if .MetaData.TitleImage }}
                         <a class="img" href="{{ .Path | toURL }}">
-                            <img class="blogImage" src="/blog/images/{{ .MetaData.TitleImage }}" alt="{{ .MetaData.TitleImage }}">
+                            <img class="blogImage" src="/post/images/{{ .MetaData.TitleImage }}" alt="{{ .MetaData.TitleImage }}">
                         </a>
                         {{ end }}
                     </div>

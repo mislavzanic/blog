@@ -1,8 +1,6 @@
 ---
 title: Hello world!
 date: 2022-10-24
-tags: 
-  - first-post
 title-image: hello-there.jpg
 ---
 Hello there :D.

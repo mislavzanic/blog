@@ -15,6 +15,7 @@ const (
 	JSDIR    = "js"
 )
 
+
 func ViewProjects(site app.Site) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		site.RenderIndex(w, site.Projects)

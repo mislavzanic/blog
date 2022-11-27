@@ -36,7 +36,7 @@
 
             installPhase = ''
               mkdir -p $out
-              cp -vrf $src/blog $out
+              cp -vrf $src/webContent $out
             '';
           };
 

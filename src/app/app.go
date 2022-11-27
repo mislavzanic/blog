@@ -11,6 +11,9 @@ import (
 	"github.com/mislavzanic/blog/src/app/renderer"
 )
 
+type void struct{}
+type set map[string]void
+
 type Site struct {
 	Blog     posts.Posts
 	About    posts.Page
@@ -18,9 +21,9 @@ type Site struct {
 }
 
 const (
-	BLOGDIR   = "blog/posts"
-	ABOUTPAGE = "blog/about/about.md"
-	PROJDIR   = "blog/projects"
+	BLOGDIR   = "webContent/blog"
+	ABOUTPAGE = "webContent/about/about.md"
+	PROJDIR   = "webContent/projects"
 )
 
 func LoadSite() Site {
@@ -76,7 +79,7 @@ func (s Site) RenderPage(w http.ResponseWriter, path string) {
 		"post.html",
 		[]string{"html/post.html", "html/header.html", "html/footer.html", "html/head.html"},
 		template.FuncMap{
-			"toURL": renderer.GetUrl("posts"),
+			"toURL": renderer.GetUrl("blog"),
 			"markDown": renderer.ToMarkdown,
 			"afterEpoch": renderer.AfterEpoch,
 		},
