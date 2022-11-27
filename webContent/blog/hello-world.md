@@ -7,7 +7,7 @@ Hello there :D.
 Welcome to my blog! This is my first post on this blog (hence the title).
 In this post, I'll talk about the purpose of this blog.
 
-![Hello There!](/blog/images/hello-there.jpg "Hello There :D")
+![Hello There!](/post/images/hello-there.jpg "Hello There :D")
 
 ## Goals
 This blog has two main purposes. 
