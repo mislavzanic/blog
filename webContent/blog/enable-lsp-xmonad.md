@@ -100,7 +100,7 @@ packages: . */*.cabal
 #### gen-hie
 
 We can generate the hie.yaml file by typing in the command `gen-hie > hie.yaml`.
-Here what `gen-hie` output looks like this:
+Here what `gen-hie` output looks like:
 ```yaml
 cradle:
   cabal:
@@ -155,8 +155,9 @@ main = do
     xmonad $ defaultConfig
 ```
 
-Here's what my editor looks like this: 
+Here's how my editor with HLS looks like: 
 ![LSP image](/post/images/lsp-enabled.png)
+![LSP image](/post/images/lsp-enabled2.png)
 
 ## Final remarks
 
