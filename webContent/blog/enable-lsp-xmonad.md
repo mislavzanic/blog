@@ -165,5 +165,5 @@ I configured the HLS for my xmonad config about 6 months ago, and I tried to do 
 
 So this post is a guide for my future self and for all XMonad users who want LSP and don't know where to start (I was pretty frustrated while configuring HLS for XMonad because of the lack of resources online). Hope this helps!
 
-If you have any questions, contact me at (mailto:mislavzanic3@gmail.com).
+If you have any questions, contact me at [mislavzanic3@gmail.com](mailto:mislavzanic3@gmail.com).
 
