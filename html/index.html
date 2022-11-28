@@ -3,9 +3,11 @@
     {{ template "header" }}
     <div class="content">
         <ol class="tagList">
+            {{ if .AllTags }}
             <i>Tagged:</i>
             {{ range .AllTags }}
             <i><a href="/by-tag/{{ . }}" class="tag">{{ . }}</a></i>
+            {{ end }}
             {{ end }}
         </ol>
         <ol class="postList">
