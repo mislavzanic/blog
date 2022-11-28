@@ -15,7 +15,6 @@ import (
 )
 
 type void struct{}
-type set map[string]void
 
 type Page struct {
 	Body     string

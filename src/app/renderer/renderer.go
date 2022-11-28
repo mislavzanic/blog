@@ -16,7 +16,6 @@ func RenderFromTemplate(w http.ResponseWriter, templateName string, templates []
 
 	tmpl := template.Must(t.ParseFiles(templates...))
 
-
     if err := tmpl.ExecuteTemplate(w, templateName, data); err != nil {
 		log.Fatal(err)
 	}

@@ -50,17 +50,7 @@ func (s Site) findPost(path string) (*posts.Page, error) {
 }
 
 func (s Site) RenderIndex(w http.ResponseWriter, index posts.Posts) {
-	renderer.RenderFromTemplate(
-		w,
-		"index.html",
-		[]string{"html/index.html", "html/head.html", "html/header.html", "html/footer.html"},
-		template.FuncMap{
-			"toURL": renderer.GetUrl(index.Uri),
-			"markDown": renderer.ToMarkdown,
-			"afterEpoch": renderer.AfterEpoch,
-		},
-		index,
-	)
+	render(w, "index.html", index.Uri, index)
 }
 
 func (s Site) RenderFilterIndex(w http.ResponseWriter, index posts.Posts, filter string) {
@@ -74,15 +64,24 @@ func (s Site) RenderPage(w http.ResponseWriter, path string) {
 		log.Fatal(err)
 	}
 
+	render(w, "post.html", "blog", post)
+}
+
+func render(w http.ResponseWriter, templateName, uri string, data interface{}) {
 	renderer.RenderFromTemplate(
 		w,
-		"post.html",
-		[]string{"html/post.html", "html/header.html", "html/footer.html", "html/head.html"},
+		templateName,
+		[]string{
+			fmt.Sprintf("html/%s", templateName),
+			"html/header.html",
+			"html/footer.html",
+			"html/head.html",
+		},
 		template.FuncMap{
-			"toURL": renderer.GetUrl("blog"),
+			"toURL": renderer.GetUrl(uri),
 			"markDown": renderer.ToMarkdown,
 			"afterEpoch": renderer.AfterEpoch,
 		},
-		post,
+		data,
 	)
 }
