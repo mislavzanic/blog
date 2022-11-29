@@ -23,6 +23,7 @@ require (
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
+	github.com/mislavzanic/readtime v0.0.0-20221129133723-d5d32965be07 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/philandstuff/dhall-golang/v6 v6.0.2 // indirect
 	github.com/prometheus/client_golang v1.14.0 // indirect

@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/mislavzanic/readtime"
 	"gopkg.in/yaml.v2"
 )
 
@@ -31,12 +32,13 @@ type Posts struct {
 }
 
 type MetaData struct {
-	Title      string    `yaml:"title"`
-	Date       time.Time `yaml:"date"`
-	Tags       []string  `yaml:"tags"`
-	TitleImage string    `yaml:"title-image"`
-	Link       string    `yaml:"link"`
-	Latex      bool      `yaml:"latex"`
+	Title               string    `yaml:"title"`
+	Date                time.Time `yaml:"date"`
+	Tags                []string  `yaml:"tags"`
+	TitleImage          string    `yaml:"title-image"`
+	Link                string    `yaml:"link"`
+	Latex               bool      `yaml:"latex"`
+	TechnicalDifficulty uint8     `yaml:"difficulty"`
 }
 
 func (p Posts) FindBlogPosts(tagId string) Posts {
@@ -102,12 +104,17 @@ func ReadBlogPost(path string) *Page {
 	metaData := readMetadata(body)
 	postBody, summary := readBody(body)
 
+	o, _ := readtime.NewOption().IsTechnical(metaData.TechnicalDifficulty != 0).TechnicalDifficulty(metaData.TechnicalDifficulty)
+
+	readTime := readtime.CalcReadTime(postBody, *(o)).Seconds / 60
+	readTime = func(rt uint64) uint64 { if rt == 0 {return 1} else {return rt}}(readTime)
+
 	return &Page{
 		MetaData: metaData,
 		Body: postBody,
 		Summary: summary,
 		Path: path,
-		ReadTime: strconv.Itoa((len(strings.Fields(postBody)) / 300) + 1),
+		ReadTime: strconv.Itoa(int(readTime)),
 	}
 }
 
@@ -121,7 +128,6 @@ func readMetadata(body []byte) MetaData {
 
 	return metadata
 }
-
 func readBody(byteArray []byte) (string, string) {
 	body := string(bytes.Split(byteArray, []byte("---\n"))[2])
 	summary := strings.Split(body, "\n\n")[0]

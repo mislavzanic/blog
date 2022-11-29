@@ -6,6 +6,7 @@ tags:
   - nixos
   - xmonad
   - haskell
+difficulty: 1
 ---
 I've been using the XMonad window manager for about two years and NixOS for about six months. 
 Despite both having a steep learning curve (I still can't comfortably say that I know exactly how my NixOS config works), XMonad and NixOS create an excellent workflow for me, and I can't imagine using anything else.

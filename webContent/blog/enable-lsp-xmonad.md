@@ -6,6 +6,7 @@ tags:
   - nixos
   - xmonad
   - haskell
+difficulty: 1
 ---
 Configuring XMonad can be a bit of a pain in the ass. Since it's configured in haskell, LSP can be enabled for XMonad configurations. I'll try to explain how I set up LSP for my config.
 
