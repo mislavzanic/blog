@@ -24,7 +24,7 @@
             pname = "blog-bin";
             inherit version;
             src = ./.;
-            vendorSha256 = "sha256-KlFv+XGgKo7rWa95baZ/aSLBDW00UGkDZgQrjUYDdP0=";
+            vendorSha256 = "sha256-Y+YQRkwLZABJ3F2HeguETYl6gMVPjv+Fe1z7o1Q5PJg=";
           };
 
           posts = pkgs.stdenv.mkDerivation {
