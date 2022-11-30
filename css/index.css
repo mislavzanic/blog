@@ -26,6 +26,10 @@ body {
   margin: auto;
 }
 
+b, strong {
+  color: #ffffff;
+}
+
 code {
   background: var(--code-bg);
   border-radius: 0.15em;
