@@ -26,7 +26,7 @@ body {
   margin: auto;
 }
 
-b, strong {
+b, strong, em {
   color: #ffffff;
 }
 

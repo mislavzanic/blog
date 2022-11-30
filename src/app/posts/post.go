@@ -3,6 +3,7 @@ package posts
 import (
 	"bytes"
 	"fmt"
+	// "io/fs"
 	"io/ioutil"
 	"log"
 	"os"
@@ -65,11 +66,12 @@ func GetAllPosts(dir string) Posts {
 		log.Fatal(err)
 	}
 
-	for _, file := range files {
+	// matches, err := fs.Glob(os.DirFS(dir), "**.md")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-		if file.IsDir() {
-			continue
-		}
+	for _, file := range files {
 
 		p := ReadBlogPost(fmt.Sprintf("%s/%s", dir, file.Name()))
 		for _, tag := range p.MetaData.Tags {
