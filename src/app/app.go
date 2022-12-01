@@ -28,9 +28,9 @@ const (
 
 func LoadSite() Site {
 	return Site{
-		Blog: posts.GetAllPosts(BLOGDIR),
+		Blog: posts.GetAllPosts("blog"),
 		About: *posts.ReadBlogPost(ABOUTPAGE),
-		Projects: posts.GetAllPosts(PROJDIR),
+		Projects: posts.GetAllPosts("projects"),
 	}
 }
 

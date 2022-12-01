@@ -3,7 +3,7 @@ package posts
 import (
 	"bytes"
 	"fmt"
-	// "io/fs"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"os"
@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/mislavzanic/readtime"
+	sf "github.com/sa-/slicefunk"
 	"gopkg.in/yaml.v2"
 )
 
@@ -57,28 +58,16 @@ func (p Posts) FindBlogPosts(tagId string) Posts {
 }
 
 func GetAllPosts(dir string) Posts {
-	files, err := os.ReadDir(dir)
 	posts := Posts{}
 	tags := make(map[string]struct{})
-	posts.Uri = strings.Split(dir, "/")[1]
+	posts.Uri = dir
 
+	matches, err := fs.Glob(os.DirFS("."), fmt.Sprintf("webContent/%s/**.md", dir))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// matches, err := fs.Glob(os.DirFS(dir), "**.md")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	for _, file := range files {
-
-		p := ReadBlogPost(fmt.Sprintf("%s/%s", dir, file.Name()))
-		for _, tag := range p.MetaData.Tags {
-			tags[tag] = void{};
-		}
-		posts.Pages = append(posts.Pages, p)
-	}
+	posts.Pages = sf.Map(matches, ReadBlogPost)
 
 	sort.Slice(posts.Pages, func(i, j int) bool {
 		return posts.Pages[i].MetaData.Date.After(posts.Pages[j].MetaData.Date)
