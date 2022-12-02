@@ -1,6 +1,6 @@
 ---
 title: Advent of code 2022 journal
-date: 2022-12-01
+date: 2022-12-02
 tags:
   - adventofcode
 difficulty: 2
@@ -60,5 +60,45 @@ fn day01() {
     input.reverse();
 
     println!("{}, {}", input[0], input[0..3].to_vec().into_iter().sum::<i32>());
+}
+```
+
+## Day 2
+
+Now for a bit of rock, paper, scissors.
+Pretty easy day, lots of typing and HashMaps :).
+
+```rust
+use std::collections::HashMap;
+use itertools::{Itertools};
+use std::fs;
+
+pub fn solve() {
+    let binding = fs::read_to_string("d02.in").unwrap().trim_end_matches(&['\r', '\n']).to_string();
+
+    let guide: Vec<(&str, &str)> = binding.split("\n")
+        .map(|s| s.split(" ").next_tuple().unwrap())
+        .collect();
+
+    let part1: HashMap<(&str, &str), i32> = HashMap::from([
+        (("X", "C"), 7),(("Y", "A"), 8),(("Z", "B"), 9),
+        (("X", "A"), 4),(("Y", "B"), 5),(("Z", "C"), 6),
+        (("X", "B"), 1),(("Y", "C"), 2),(("Z", "A"), 3)
+    ]);
+
+    let part2: HashMap<(&str, &str), i32> = HashMap::from([
+        (("X", "C"), 2),(("Y", "A"), 4),(("Z", "B"), 9),
+        (("X", "A"), 3),(("Y", "B"), 5),(("Z", "C"), 7),
+        (("X", "B"), 1),(("Y", "C"), 6),(("Z", "A"), 8)
+    ]);
+
+    let mut p1 = 0;
+    let mut p2 = 0;
+    for (other, me) in guide.iter() {
+        p1 += part1[&(*me, *other)];
+        p2 += part2[&(*me, *other)];
+    };
+
+    println!("{}, {}", p1, p2)
 }
 ```
