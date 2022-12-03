@@ -13,8 +13,12 @@ I'm learning Rust this year, so some of days will be solved in Rust, and the res
 
 The reindeers are hungry for _**star fruit**_ found only in the depths of the jungle. We are joining the elves on their annual expedition to the grove where the fruit grows.
 
+## Table of contents
+1. [Day 01](#d01)
+2. [Day 02](#d02)
+3. [Day 03](#d03)
 
-## Day 01
+## <a class="inpost" name="d01">Day 01</a>
 
 ![Day1](/post/images/day1aoc2022.png)
 ```
@@ -69,7 +73,7 @@ fn day01() {
 }
 ```
 
-## Day 02
+## <a class="inpost" name="d02">Day 02</a>
 
 Now for a bit of rock, paper, scissors.
 Pretty easy day, lots of typing and HashMaps :).
@@ -80,7 +84,10 @@ use itertools::{Itertools};
 use std::fs;
 
 pub fn solve() {
-    let binding = fs::read_to_string("d02.in").unwrap().trim_end_matches(&['\r', '\n']).to_string();
+    let binding = fs::read_to_string("d02.in")
+        .unwrap()
+        .trim_end_matches(&['\r', '\n'])
+        .to_string();
 
     let guide: Vec<(&str, &str)> = binding.split("\n")
         .map(|s| s.split(" ").next_tuple().unwrap())
@@ -106,5 +113,59 @@ pub fn solve() {
     };
 
     println!("{}, {}", p1, p2)
+}
+```
+
+## <a class="inpost" name="d03">Day 03</a>
+
+A fun day.
+We needed to find a couple of intersections.
+For part one, we needed to find the intersection between the left and right-hand sides of strings, and, for part two, between batches of three strings.
+Excuse the poor rust code, I'm still learning :).
+
+```rust
+use std::collections::HashSet;
+use std::fs;
+
+use itertools::Itertools;
+
+fn prio(rune: &char) -> u32 {
+    if rune.is_uppercase() {
+        (*rune as u32) - ('A' as u32) + 27
+    } else {
+        (*rune as u32) - ('a' as u32) + 1
+    }
+}
+
+pub fn solve() {
+    let binding = fs::read_to_string("d03.in").unwrap();
+
+    let mut part1 = 0;
+    let mut part2 = 0;
+    let mut batch: HashSet<char> = HashSet::new();
+
+    for (idx, item) in binding.trim_end_matches(&['\r', '\n']).split('\n').enumerate() {
+        if idx % 3 != 0 {
+            let s: HashSet<char> = item.chars().collect();
+            batch = batch.into_iter().filter(|c| s.contains(c)).collect();
+
+            if idx % 3 == 2 {
+                part2 += batch.iter().map(|c| prio(c)).sum::<u32>();
+            }
+
+        } else {
+            batch.clear();
+            batch.extend(&HashSet::from(item.chars().collect::<HashSet<char>>()));
+        }
+
+        let len: usize = item.chars().count();
+        let (p1, p2) = item.split_at(len / 2);
+        let (s1, s2): (HashSet<char>, HashSet<char>) = (
+            p1.chars().collect(), p2.chars().collect()
+        );
+        part1 += s1.intersection(&s2).map(|c| prio(c)).sum::<u32>()
+    }
+
+    println!("{}, {}", part1, part2);
 }
 ```

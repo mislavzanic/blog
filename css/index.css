@@ -17,6 +17,7 @@ body, html {
   margin: auto;
 }
 
+
 body {
   font-size: 1rem;
   font-family: "Liberation Mono", monospace;
@@ -131,6 +132,15 @@ p {
 }
 
 .content h2 {
+  color: var(--darkreader-text--modus-themes-color-warm);
+}
+
+.inpost {
+  color: var(--darkreader-text--modus-themes-color-warm);
+  text-decoration: none;
+}
+
+.inpost:hover {
   color: var(--darkreader-text--modus-themes-color-warm);
 }
 
