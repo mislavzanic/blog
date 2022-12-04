@@ -1,6 +1,6 @@
 ---
 title: Advent of code 2022 journal
-date: 2022-12-02
+date: 2022-12-04
 tags:
   - adventofcode
 difficulty: 2
@@ -14,6 +14,8 @@ I'm learning Rust this year, so some of days will be solved in Rust, and the res
 The reindeers are hungry for _**star fruit**_ found only in the depths of the jungle. We are joining the elves on their annual expedition to the grove where the fruit grows.
 
 ![AOC](/post/images/aoc2022_1.png)
+
+Since the first couple of puzzles will be nothing to write home to, I'll update this post with more interesting puzzles.
 
 ## Table of contents
 1. [Day 01](#d01)
