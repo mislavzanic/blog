@@ -1,2 +1,2 @@
 requiredChecks:
-  - build-job
+  - Docker Image CI / build (pull_request)
