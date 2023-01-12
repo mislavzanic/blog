@@ -90,5 +90,7 @@
       );
 
       defaultPackage = forAllSystems (system: self.packages.${system}.gotsm);
+
+      devShell."x86_64-linux" = import ./shell.nix {pkgs = nixpkgsFor."x86_64-linux";};
     };
 }
