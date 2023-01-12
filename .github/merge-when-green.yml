@@ -1,2 +1,4 @@
 requiredChecks:
+  - circleci
+  - travis-ci
   - Docker Image CI / build (pull_request)
