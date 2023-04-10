@@ -1,6 +1,6 @@
 ---
 title: Advent of code 2022 journal
-date: 2022-12-04
+date: 2023-04-10
 tags:
   - adventofcode
 difficulty: 2
