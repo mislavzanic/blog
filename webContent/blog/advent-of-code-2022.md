@@ -21,6 +21,7 @@ Since the first couple of puzzles will be nothing to write home to, I'll update 
 1. [Day 01](#d01)
 2. [Day 02](#d02)
 3. [Day 03](#d03)
+3. [Rest of the days](#rest)
 
 ## <a class="inpost" name="d01">Day 01</a>
 
@@ -168,3 +169,35 @@ pub fn solve() {
     println!("{}, {}", part1, part2);
 }
 ```
+
+## <a class="inpost" name="rest">Rest of the days</a>
+
+Sooo.....
+The journal went as planned (obviously :), since it's the day after Easter)...
+
+I struggled with Rust for another day or two, and then I switched over to Python :).
+The days weren't anything special this year. The most notable ones are [#16](https://adventofcode.com/2022/day/16) and [#22](https://adventofcode.com/2022/day/22).
+
+### Day 16
+This one was legit fun. Like, really fun!
+Also, this one holds my best rank (for part one only (it's 164)).
+
+Part one was a depth-first search through a graph. 
+The catch was that the graph had lots of nodes that had the weight 0, so we could use the [Floyd-Warshall algorithm](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm) to create a **complete** graph.
+Also, the time variable $t$ speeds up the search.
+
+
+Part two was not so easy at first glance, but, after some thinking, you come to realize that it's just part one ran twice for two parts of the **complete** graph from part one.
+Time variable $t$ does some heavy lifting in this part!
+
+
+### Day 22
+This one is plain evil.
+I'm not even going to explain it (since there is no explaining needed!). Just hardcode the cube and be done with it...
+
+
+
+## Final thoughts
+This year had the best puzzle I ever solved ([#16](https://adventofcode.com/2022/day/16)), and the worst ([#22](https://adventofcode.com/2022/day/22)).
+All in all, it was really fun, and I hope it will be as fun in 2023.
+
