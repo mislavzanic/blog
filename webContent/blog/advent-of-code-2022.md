@@ -3,6 +3,7 @@ title: Advent of code 2022 journal
 date: 2023-04-10
 tags:
   - adventofcode
+  - math
 difficulty: 2
 title-image: aoc2022.png
 ---
