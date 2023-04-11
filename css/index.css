@@ -127,6 +127,22 @@ p {
     margin: 2rem auto;
 }
 
+h1::before {
+    content: "# ";
+}
+
+h2::before {
+    content: "## ";
+}
+
+h3::before {
+    content: "### ";
+}
+
+h4::before {
+    content: "#### ";
+}
+
 .content h1 {
   color: #ffffff;
 }
