@@ -10,7 +10,7 @@
             {{ end }}
             {{ end }}
         </ol>
-        <ol class="postList">
+        <ul class="postList">
             {{ range .Pages }}
             <li class="post-card">
                 <div class="summary">
@@ -22,18 +22,17 @@
                             <b><a href="{{ .Path | toURL }}" class="post-link">{{ .MetaData.Title }}</a></b>
                             {{ end }}
                         </span>
-                        <br>
                         {{ if afterEpoch .MetaData.Date }}
                         <time style="font-size: 0.8em;">
                             <i>{{ .MetaData.Date.Format "Jan 02, 2006" }}</i>
                         </time>
                         {{ end }}
                     </div>
-                    <div style="clear:both"></div>
+                    <!-- <div style="clear:both"></div> -->
                 </div>
             </li>
             {{ end }}
-        </ol>
+        </ul>
     </div>
     {{ template "footer" }}
 </body>
