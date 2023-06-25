@@ -22,7 +22,7 @@ Since the first couple of puzzles will be nothing to write home to, I'll update 
 1. [Day 01](#d01)
 2. [Day 02](#d02)
 3. [Day 03](#d03)
-3. [Rest of the days](#rest)
+4. [Rest of the days](#rest)
 
 ## <a class="inpost" name="d01">Day 01</a>
 

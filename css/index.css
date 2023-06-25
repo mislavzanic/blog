@@ -11,6 +11,10 @@
   --darkreader-text--modus-themes-color-baselinkfgalt: var(--darkreader-text--modus-themes-color-cyan);
   --darkreader-bg--modus-themes-color-baselinkfghover: var(--darkreader-bg--modus-themes-color-blue-alt);
   --code-bg: #1f1f24;
+
+  --proportional-fonts: "Source Sans Pro",sans-serif;
+  --monospace-fonts: "Iosevka",monospace;
+  --serif-fonts: "Source Serif Pro",serif;
 }
 
 body, html {
@@ -20,7 +24,7 @@ body, html {
 
 body {
   font-size: 1rem;
-  font-family: "Liberation Mono", monospace;
+  /* font-family: "Liberation Mono", monospace; */
   font-style: normal;
   background: #000;
   color: #cccccc;
@@ -35,6 +39,11 @@ code {
   background: var(--code-bg);
   border-radius: 0.15em;
   color: #93a1a1;
+  overflow-wrap: break-word;
+}
+
+pre {
+    overflow: auto;
 }
 
 header div {
@@ -48,6 +57,7 @@ header div {
   max-width: 65rem;
   margin: auto auto;
   padding: 2rem;
+  font: var(--proportional-fonts);
 }
 
 .blog-header {
@@ -58,6 +68,7 @@ header div {
     margin-top: 0;
     display: flex;
     flex-direction: row;
+   font: var(--proportional-fonts);
 }
 
 .blog-footer {
@@ -67,6 +78,7 @@ header div {
     /* font-family: "Source Code Pro", monospace; */
     font-style: normal;
     border-top: 1px solid #ffffff33;
+    font: var(--proportional-fonts);
 }
 
 .post-card {
@@ -76,6 +88,7 @@ header div {
     text-align: center;
     /* margin: 2rem auto; */
     padding: 0.5em;
+    font: var(--proportional-fonts);
 }
 
 .postLink {
@@ -110,7 +123,7 @@ p {
   color: #ffffff;
 }
 
-li::marker {
+.post-card::marker {
   content: '-';
   /* color: var(--darkreader-text--modus-themes-color-warm); */
   font-size: 1.1em;
@@ -133,6 +146,7 @@ li::marker {
     margin: 2rem auto;
 }
 
+/*
 h1::before {
     content: "# ";
 }
@@ -148,6 +162,7 @@ h3::before {
 h4::before {
     content: "#### ";
 }
+*/
 
 .content h1 {
   color: #ffffff;
