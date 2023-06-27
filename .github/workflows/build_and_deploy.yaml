@@ -26,4 +26,4 @@ jobs:
       run: |
         curl -X POST "${{ secrets.WEBHOOK_ENDPOINT }}" \
              -H 'Content-Type: application/json' \
-             --json "${{ secrets.PAYLOAD }}"
+             -d "${{ secrets.PAYLOAD }}"
