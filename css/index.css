@@ -37,6 +37,7 @@ b, strong, em {
 
 code {
   background: var(--code-bg);
+  font: var(--monospace-fonts);
   border-radius: 0.15em;
   color: #93a1a1;
   overflow-wrap: break-word;

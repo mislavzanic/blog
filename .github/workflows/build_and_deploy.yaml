@@ -22,3 +22,8 @@ jobs:
         nix run ".#upload-script"
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+    - name: Webhook
+      run: |
+        curl -X POST "${{ secrets.WEBHOOK_ENDPOINT }}" \
+             -H 'Content-Type: application/json' \
+             --json "${{ secrets.PAYLOAD }}"
