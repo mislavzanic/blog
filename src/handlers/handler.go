@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus"
 
 	"github.com/mislavzanic/blog/src/app"
 	"github.com/mislavzanic/blog/src/metrics"
@@ -26,6 +27,7 @@ func ViewProjects(site app.Site) http.HandlerFunc {
 func PageHandler(site app.Site) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		site.RenderPage(w, fmt.Sprintf("%s/%s.md", app.BLOGDIR, mux.Vars(req)["pageId"]))
+		metrics.BlogHits.With(prometheus.Labels{"name": mux.Vars(req)["pageId"]}).Inc()
 	}
 }
 
