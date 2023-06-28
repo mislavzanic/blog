@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 
 	"github.com/mislavzanic/blog/src/app"
+	"github.com/mislavzanic/blog/src/metrics"
 )
 
 const (
@@ -42,6 +43,7 @@ func FilterByTag(site app.Site) http.HandlerFunc {
 
 func ViewAllPosts(site app.Site) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
+		metrics.ViewIndex.Inc()
 		site.RenderIndex(w, site.Blog)
 	}
 }
