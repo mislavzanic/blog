@@ -5,6 +5,7 @@ tags:
   - adventofcode
   - math
 difficulty: 2
+latex: true
 title-image: aoc2022.png
 ---
 It's that wonderful time of the year again when the European programmers wake up at 5 (or 6) am to help a little Elf to save Christmas by solving programming puzzles. **It's Advent of code time!**
