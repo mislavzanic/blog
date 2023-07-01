@@ -1,10 +1,14 @@
 {
   description = "A simple Go package";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    iosevka.url = "github:mislavzanic/iosevka";
+  };
 
-  outputs = { self, nixpkgs, flake-utils }:
+
+  outputs = { self, nixpkgs, flake-utils, iosevka }:
     let
 
       lastModifiedDate = self.lastModifiedDate or self.lastModified or "19700101";
@@ -40,6 +44,38 @@
             '';
           };
 
+          iosevka = pkgs.stdenvNoCC.mkDerivation {
+            name = "blog-iosevka";
+            buildInputs = with pkgs; [
+              python311Packages.brotli
+              python311Packages.fonttools
+            ];
+            dontUnpack = true;
+            buildPhase = ''
+              mkdir -p out
+              ${pkgs.unzip}/bin/unzip ${
+                self.inputs.iosevka.packages.${system}.default
+              }/ttf.zip
+              for ttf in ttf/*.ttf; do
+                cp $ttf out
+                name=`basename -s .ttf $ttf`
+                pyftsubset \
+                    $ttf \
+                    --output-file=out/"$name".woff2 \
+                    --flavor=woff2 \
+                    --layout-features=* \
+                    --no-hinting \
+                    --desubroutinize \
+                    --unicodes="U+0000-0170,U+00D7,U+00F7,U+2000-206F,U+2074,U+20AC,U+2122,U+2190-21BB,U+2212,U+2215,U+F8FF,U+FEFF,U+FFFD,U+00E8"
+              done
+
+            '';
+            installPhase = ''
+              mkdir -p $out/css/iosevka
+              cp out/* $out/css/iosevka
+            '';
+          };
+
           static = pkgs.stdenv.mkDerivation {
             pname = "blog-static";
             inherit (bin) version;
@@ -57,7 +93,7 @@
 
           default = pkgs.symlinkJoin {
             name = "blog";
-            paths = [ posts static bin ];
+            paths = [ posts static bin iosevka ];
           };
 
           docker = pkgs.dockerTools.buildLayeredImage {

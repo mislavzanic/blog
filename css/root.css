@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "Iosevka Aile Custom";
+    font-weight: 100 900;
+    src: local("Iosevka Aile Custom")
+         , url("iosevka/iosevka-aile-regular.woff2") format("woff2")
+         , url("iosevka/iosevka-aile-italic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Iosevka Curly Custom";
+    font-weight: 100 900;
+    src: local("Iosevka Curly Custom")
+         , url("iosevka/iosevka-curly-regular.woff2") format("woff2")
+         , url("iosevka/iosevka-curly-italic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Iosevka Etoile Custom";
+    font-weight: 100 900;
+    src: local("Iosevka Etoile Custom")
+         , url("iosevka/iosevka-etoile-regular.woff2") format("woff2")
+         , url("iosevka/iosevka-etoile-italic.woff2") format("woff2");
+}
+
+:root {
+  --darkreader-text--modus-themes-color-warm: #f5d0a5;
+  --darkreader-text--modus-themes-color-warm-hover: #d5a075;
+  --darkreader-text--modus-themes-color-cold: #a4deff;
+  --darkreader-text--modus-themes-color-mild: #a4deff;
+  --darkreader-text--modus-themes-color-blue: #1dc8ff;
+  --darkreader-text--modus-themes-color-blue-alt: #69b4ff;
+  --darkreader-text--modus-themes-color-cyan: #38fffc;
+  --darkreader-text--modus-themes-color-calm: #f8b4eb;
+  --darkreader-text--modus-themes-color-baselinkfg: var(--darkreader-text--modus-themes-color-blue);
+  --darkreader-text--modus-themes-color-baselinkfgalt: var(--darkreader-text--modus-themes-color-cyan);
+  --darkreader-bg--modus-themes-color-baselinkfghover: var(--darkreader-bg--modus-themes-color-blue-alt);
+  --code-bg: #1f1f24;
+
+  /* --proportional-fonts: "Source Sans Pro",sans-serif; */
+  /* --serif-fonts: "Source Serif Pro",serif; */
+  --proportional-fonts: "Iosevka Etoile Custom";
+  --monospace-fonts: "Iosevka Curly Custom";
+  --serif-fonts: "Iosevka Etoile Custom";
+}
