@@ -2,6 +2,9 @@ body, html {
   margin: auto;
 }
 
+nav {
+    font-size: 1.1rem;
+}
 
 body {
   font-size: 1rem;
@@ -27,46 +30,33 @@ pre {
     overflow: auto;
 }
 
-header div {
-  align-items: center;
-  margin: 0 auto;
-  color: #ffffff;
-}
-
 .content {
   background: #000000;
-  max-width: 65rem;
-  margin: auto auto;
+  max-width: 60rem;
+  margin: auto;
   padding: 2rem;
   font-family: var(--proportional-fonts);
 }
 
-.blog-header {
-    text-align: center;
-    padding: 1em;
-    border-bottom: 1px solid #ffffff33;
-    margin: 1rem 0;
-    margin-top: 0;
-    display: flex;
-    flex-direction: row;
-   font-family: var(--proportional-fonts);
+header {
+  padding: 1em;
+  font-family: var(--proportional-fonts);
 }
 
-.blog-footer {
-    text-align: center;
-    margin: 2rem auto;
-    padding: 1em;
-    /* font-family: "Source Code Pro", monospace; */
-    font-style: normal;
-    border-top: 1px solid #ffffff33;
-    font-family: var(--proportional-fonts);
+footer {
+  bottom: 0;
+  width: 65%;
+  height: 2rem;
+
+  text-align: center;
+  margin: 2rem auto;
+  font-family: var(--proportional-fonts);
 }
 
 .post-card {
     list-style-type: none;
     align-items: left;
     text-align: center;
-    padding: 0.5em;
     font-family: var(--proportional-fonts);
 }
 
@@ -103,8 +93,7 @@ p {
 }
 
 .post-card::marker {
-  content: '-';
-  /* color: var(--darkreader-text--modus-themes-color-warm); */
+  content: '- ';
   font-size: 1.1em;
 }
 

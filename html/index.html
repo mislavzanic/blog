@@ -1,40 +1,35 @@
 {{ template "head" }}
 <body>
-    {{ template "header" }}
     <div class="content">
-        <ol class="tagList">
-            {{ if .AllTags }}
-            <i>Tagged:</i>
-            {{ range .AllTags }}
-            <i><a href="/by-tag/{{ . }}" class="tag" style="font-size: 1rem;">{{ . }}</a></i>
-            {{ end }}
-            {{ end }}
-        </ol>
+    {{ template "header" }}
+        {{ if eq .Uri "blog" }}
+        <h1>Blogposts</h1>
+        {{ else }}
+        <h1>Projects</h1>
+        {{ end }}
         <ul class="postList">
-            {{ range .Pages }}
+        {{ range .Pages }}
             <li class="post-card">
-                <div class="summary">
-                    <div class="postLink">
-                        <span class="title">
-                            {{ if .MetaData.Link }}
-                            <b><a href="{{ .MetaData.Link }}" class="post-link">{{ .MetaData.Title }}</a></b>
-                            {{ else }}
-                            <b><a href="{{ .Path | toURL }}" class="post-link">{{ .MetaData.Title }}</a></b>
-                            {{ end }}
-                        </span>
-                        {{ if afterEpoch .MetaData.Date }}
-                        <time style="font-size: 0.8em;">
-                            <i>{{ .MetaData.Date.Format "Jan 02, 2006" }}</i>
-                        </time>
-                        {{ end }}
-                    </div>
-                    <!-- <div style="clear:both"></div> -->
+                <div class="postLink">
+                {{ if afterEpoch .MetaData.Date }}
+                    <time style="font-size: 0.9em;">
+                        <i>{{ .MetaData.Date.Format "Jan 02, 2006" }}</i>
+                    </time>
+                     - 
+                {{ end }}
+                    <span class="title">
+                    {{ if .MetaData.Link }}
+                        <b><a href="{{ .MetaData.Link }}" class="post-link">{{ .MetaData.Title }}</a></b>
+                    {{ else }}
+                        <b><a href="{{ .Path | toURL }}" class="post-link">{{ .MetaData.Title }}</a></b>
+                    {{ end }}
+                    </span>
                 </div>
             </li>
-            {{ end }}
+        {{ end }}
         </ul>
-    </div>
     {{ template "footer" }}
+    </div>
 </body>
 
 </html>
