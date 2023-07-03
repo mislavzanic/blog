@@ -2,7 +2,7 @@
 title: First NixOS package
 tags:
   - nixos
-date: 2023-06-25
+date: 2023-07-03
 difficulty: 3
 ---
 
