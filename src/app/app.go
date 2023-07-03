@@ -21,6 +21,9 @@ type Site struct {
 }
 
 const (
+	HTMLDIR  = "static/html"
+	CSSDIR   = "static/css"
+	JSDIR    = "static/js"
 	BLOGDIR   = "webContent/blog"
 	ABOUTPAGE = "webContent/about/about.md"
 	PROJDIR   = "webContent/projects"
@@ -72,10 +75,10 @@ func render(w http.ResponseWriter, templateName, uri string, data interface{}) {
 		w,
 		templateName,
 		[]string{
-			fmt.Sprintf("html/%s", templateName),
-			"html/header.html",
-			"html/footer.html",
-			"html/head.html",
+			fmt.Sprintf("%s/%s", HTMLDIR, templateName),
+			fmt.Sprintf("%s/header.html", HTMLDIR),
+			fmt.Sprintf("%s/footer.html", HTMLDIR),
+			fmt.Sprintf("%s/head.html", HTMLDIR),
 		},
 		template.FuncMap{
 			"toURL": renderer.GetUrl(uri),

@@ -71,8 +71,8 @@
 
             '';
             installPhase = ''
-              mkdir -p $out/css/iosevka
-              cp out/* $out/css/iosevka
+              mkdir -p $out/static/css/iosevka
+              cp out/* $out/static/css/iosevka
             '';
           };
 
@@ -85,9 +85,7 @@
 
             installPhase = ''
               mkdir -p $out
-              cp -vrf $src/js $out
-              cp -vrf $src/html $out
-              cp -vrf $src/css $out
+              cp -vrf $src/static $out
             '';
           };
 

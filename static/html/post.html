@@ -6,7 +6,7 @@
     <div class="content">
     {{ template "header" }}
         <div>
-            <h1 style="font-size: 1.7rem;">{{ .MetaData.Title }}</h1>
+            <h1>{{ .MetaData.Title }}</h1>
             {{ if afterEpoch .MetaData.Date  }}
             <i><time style="font-size: 0.85rem;">
                 {{ .MetaData.Date.Format "Jan 02, 2006" }}
@@ -17,7 +17,7 @@
                 <i><a href="/by-tag/{{ . }}" class="tag">{{.}}</a></i>
                 {{ end }}
             </ul>
-            {{ if ne .MetaData.Title "About" }}
+            {{ if ne .MetaData.Title "Hello there!" }}
             <i><p style="font-size: 0.85rem;">A {{ .ReadTime }} minute read.</p></i>
             {{ end }}
         </div>

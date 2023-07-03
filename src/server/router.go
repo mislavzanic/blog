@@ -13,15 +13,15 @@ import (
 
 func NewRouter(site app.Site) *mux.Router {
 	router := mux.NewRouter()
-	router.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir(handlers.CSSDIR))))
+	router.PathPrefix("/static/css/").Handler(http.StripPrefix("/static/css/", http.FileServer(http.Dir(app.CSSDIR))))
 	router.PathPrefix("/post/").Handler(http.StripPrefix("/post/", http.FileServer(http.Dir("webContent"))))
-	router.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir(handlers.JSDIR))))
+	router.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir(app.JSDIR))))
 
-	router.HandleFunc("/", handlers.ViewAllPosts(site))
-	router.HandleFunc("/about", handlers.AboutSection(site))
-	router.HandleFunc("/projects", handlers.ViewProjects(site))
+	router.HandleFunc("/", handlers.AboutSection(site))
+	router.HandleFunc("/blog", handlers.ViewAllPosts(site))
 	router.HandleFunc("/blog/{pageId}", handlers.PageHandler(site))
 	router.HandleFunc("/by-tag/{tagId}", handlers.FilterByTag(site))
+	router.HandleFunc("/projects", handlers.ViewProjects(site))
 
 	http.Handle("/metrics", promhttp.Handler())
 
