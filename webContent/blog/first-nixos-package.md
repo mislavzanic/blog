@@ -10,11 +10,24 @@ I created my first NixOS package a couple of months ago.
 The package is called [Terraspace](https://terraspace.cloud/). 
 I needed it for some work-related stuff, and I didn't find it in the nixpkgs repo, so I took the opportunity to become a nixpkgs contributor.
 I had some problems while creating it that I had to debug alone, so I'll recreate the process of packaging it to help anyone stuck on a similar set of problems.
+I'll also write a cookbook that I use when creating a nix package.
 
-## NixOS Wiki
+The great thing about nix and NixOS is the ability to reproducibly package niche programs for your system, and have that config stored in a VCS, and I think that all nix users should be familiar with it without needing to learn how to breathe nix.
+It took me more than a year to grasp how powerful this is. I'm writing this post in the hope that it will help a novice nix user with things I had to figure out through troubleshooting.
 
+## The cookbook
+1. *Look up a similar package in the nixpkgs repo!* This will save you lots of time, and will give you a great starting point.
+2. Search the NixOS wiki. This can give you some useful points, but it can also fail you epically (as you will see later).
+
+Most of the time, the source of the package you want to build will be on GitHub.
+These kind of packages are built by fetching a wanted release fron GitHub and then building it (probably by following the instructions found in the README.md).
+The exeptions to the above instruction are the `pip`, `gem`, etc. packages. 
+You can build those following the above instructions, or by using nix built-in modules for those kinds of packages.
+
+## Building Terraspace
 Terraspace is a ruby package, so googling "nixos create ruby package" yields [this](https://nixos.wiki/wiki/Packaging/Ruby), so I decided to follow it.
 
+### Searching the NixOS wiki
 The wiki gives us a `shell.nix`:
 ```nix
 with import <nixpkgs> {};
@@ -40,144 +53,14 @@ $ nix-shell
 $ bundle install      # generates Gemfile.lock
 $ bundix              # generates gemset.nix
 ```
-so lets create a `Gemfile`:
+so let's create a `Gemfile`:
 ```ruby
 source "https://rubygems.org"
 gem "terraspace", '~> 2.2.7'
 ```
 and do what the wiki tells us to.
 
-Here's what generated `Gemfile.lock` looks like:
-```lock
-GEM
-  remote: https://rubygems.org/
-  specs:
-    activesupport (7.0.5)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (>= 1.6, < 2)
-      minitest (>= 5.1)
-      tzinfo (~> 2.0)
-    aws-eventstream (1.2.0)
-    aws-partitions (1.781.0)
-    aws-sdk-core (3.175.0)
-      aws-eventstream (~> 1, >= 1.0.2)
-      aws-partitions (~> 1, >= 1.651.0)
-      aws-sigv4 (~> 1.5)
-      jmespath (~> 1, >= 1.6.1)
-    aws-sdk-kms (1.67.0)
-      aws-sdk-core (~> 3, >= 3.174.0)
-      aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.126.0)
-      aws-sdk-core (~> 3, >= 3.174.0)
-      aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.4)
-    aws-sigv4 (1.5.2)
-      aws-eventstream (~> 1, >= 1.0.2)
-    cli-format (0.2.2)
-      activesupport
-      text-table
-      zeitwerk
-    concurrent-ruby (1.2.2)
-    deep_merge (1.2.2)
-    diff-lcs (1.5.0)
-    dotenv (2.8.1)
-    dsl_evaluator (0.3.1)
-      activesupport
-      memoist
-      rainbow
-      zeitwerk
-    eventmachine (1.2.7)
-    eventmachine-tail (0.6.5)
-      eventmachine
-    graph (2.11.0)
-    hcl_parser (0.2.2)
-      rhcl
-    i18n (1.14.1)
-      concurrent-ruby (~> 1.0)
-    jmespath (1.6.2)
-    memoist (0.16.2)
-    minitest (5.18.1)
-    nokogiri (1.15.2-x86_64-linux)
-      racc (~> 1.4)
-    racc (1.7.1)
-    rainbow (3.1.1)
-    render_me_pretty (0.9.0)
-      activesupport
-      rainbow
-      tilt
-    rexml (3.2.5)
-    rhcl (0.1.0)
-      deep_merge
-    rspec (3.12.0)
-      rspec-core (~> 3.12.0)
-      rspec-expectations (~> 3.12.0)
-      rspec-mocks (~> 3.12.0)
-    rspec-core (3.12.2)
-      rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.3)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.5)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-support (3.12.0)
-    rspec-terraspace (0.3.3)
-      activesupport
-      memoist
-      rainbow
-      rspec
-      zeitwerk
-    rubyzip (2.3.2)
-    terraspace (2.2.7)
-      activesupport
-      bundler
-      cli-format
-      deep_merge
-      dotenv
-      dsl_evaluator
-      eventmachine-tail
-      graph
-      hcl_parser
-      memoist
-      rainbow
-      render_me_pretty
-      rexml
-      rspec-terraspace (>= 0.3.1)
-      terraspace-bundler (>= 0.5.0)
-      thor
-      tty-tree
-      zeitwerk
-      zip_folder
-    terraspace-bundler (0.5.0)
-      activesupport
-      aws-sdk-s3
-      dsl_evaluator
-      memoist
-      nokogiri
-      rainbow
-      rubyzip
-      thor
-      zeitwerk
-    text-table (1.2.4)
-    thor (1.2.2)
-    tilt (2.2.0)
-    tty-tree (0.4.0)
-    tzinfo (2.0.6)
-      concurrent-ruby (~> 1.0)
-    zeitwerk (2.6.8)
-    zip_folder (0.1.0)
-      rubyzip
-
-PLATFORMS
-  x86_64-linux
-
-DEPENDENCIES
-  terraspace (~> 2.2.7)
-
-BUNDLED WITH
-   2.3.26
-```
-Runing `bundix` generates a `gemset.nix` file.
+Running `bundle install` and `bundix` generates a `Gemfile.lock` and `gemset.nix` files respectively.
 ```sh
 [nix-shell:~/.local/dev/nix-tinkering/terraspace]$ ls
 Gemfile  Gemfile.lock  gemset.nix  shell.nix
@@ -210,6 +93,7 @@ EOF
 }
 ```
 
+### NixOS wiki failing us
 Running the `nix-build -E '((import <nixpkgs> {}).callPackage (import ./default.nix) { })'` we get this:
 ```
 [nix-shell:~/.local/dev/nix-tinkering/terraspace]$ nix-build -E '((import <nixpkgs> {}).callPackage (import ./default.nix) { })'
@@ -227,7 +111,8 @@ error: 1 dependencies of derivation '/nix/store/i507v7y7qfn5bsvw7l29zq99z7c4mhz9
 error: 1 dependencies of derivation '/nix/store/fl4db3lr6v8vks68j599nqfhd3cyhhlk-terraspace-env.drv' failed to build
 error: 1 dependencies of derivation '/nix/store/lkfx6q1jyv6wzsp24hxdyrcchf25bvcj-terraspace.drv' failed to build
 ```
-We need to replace the `sha` of nokogiri in the `gemset.nix` file. 
+This errors tend to show up. 
+Nothing big, we just need to replace the `sha` in the `gemset.nix` file.
 After replacing it we get:
 ```
 [nix-shell:~/.local/dev/nix-tinkering/terraspace]$ nix-build -E '((import <nixpkgs> {}).callPackage (import ./default.nix) { })'
@@ -249,25 +134,16 @@ error: 1 dependencies of derivation '/nix/store/d1clnrg5mfzsi79v9kl264cxg0a5qcmg
 error: 1 dependencies of derivation '/nix/store/d7snzgwfizvix2y5ql4pygccjm4n5nr4-terraspace.drv' failed to build
 ```
 Seems like we have a problem with nokogiri...
-This is what `nokogiri` attrset in `gemset.nix` file looks like:
-```nix
-nokogiri = {
-  dependencies = ["racc"];
-  groups = ["default"];
-  platforms = [];
-  source = {
-    remotes = ["https://rubygems.org"];
-    sha256 = "sha256-INyAC4++TE9LWxZOaqOrgqNxvLJ+toXBZpYcNN2KItc=";
-    type = "gem";
-  };
-  version = "1.15.2";
-};
+Looking at `Gemfile.lock` we see:
 ```
-Googling "nokogiri" gets us to the [rubygems site](https://rubygems.org/gems/nokogiri/versions/1.15.2) of it.
+nokogiri (1.15.2-x86_64-linux)
+  racc (~> 1.4)
+```
+Googling "nokogiri" gets us to the [rubygems site](https://rubygems.org/gems/nokogiri/versions/1.15.2).
 Here we find an error. 
 It seems like `bundle install` didn't add `mini_portile2` as a nokogiri dependency.
-Also, it has `1.15.2-x86_64-linux` as a version, which seems weird.
-This is what the `nokogiri` section should look like:
+Also, it has `1.15.2-x86_64-linux` as a version, which seems weird, let's fix this.
+This is what the nokogiri section of the `Gemfile.lock` should look like:
 ```
 nokogiri (1.15.2)
   racc (~> 1.4)
@@ -279,114 +155,62 @@ We remove the old `gemset.nix` file and run `bundix` and try to build terraspace
 ```
 [nix-shell:~/.local/dev/nix-tinkering/terraspace]$ nix-build -E '((import <nixpkgs> {}).callPackage (import ./default.nix) { })'
 ...
-/nix/store/lrdsc0g56ng65pijbxq83q2b8cdjybag-terraspace
+/nix/store/vlpslz0zpqgdn9yp019vva1jgr0rlky8-terraspace
 ```
 Success! Let's run it!
 ```
 [nix-shell:~/.local/dev/nix-tinkering/terraspace]$ result/bin/terraspace -v
 Traceback (most recent call last):
-/nix/store/yy9sbr2sd4qfn5fdygcqkmibscbcknhq-ruby-2.7.7/bin/ruby: No such file or directory -- /nix/store/lrdsc0g56ng65pijbxq83q2b8cdjybag-terraspace/share/terraspace/terraspace (LoadError)
+/nix/store/yy9sbr2sd4qfn5fdygcqkmibscbcknhq-ruby-2.7.7/bin/ruby: No such file or directory -- /nix/store/vlpslz0zpqgdn9yp019vva1jgr0rlky8-terraspace/share/terraspace/terraspace (LoadError)
 ```
-Ehh... It seems something is wrong with the `installPhase`, probably.
-We should take a look at ruby packages in the nixpkgs repo.
-[This](https://github.com/NixOS/nixpkgs/blob/27343d6e6b710f386aa5df63bdeb16866a782b74/pkgs/tools/misc/pws/default.nix#L2) seems to have a simple `installPhase` that we can use.
-Modified `default.nix` looks like this:
-```nix
-{ stdenv, bundlerEnv, ruby, makeWrapper }:
-let
-  gems = bundlerEnv {
-    name = "terraspace-env";
-    inherit ruby;
-    gemdir  = ./.;
-  };
-in stdenv.mkDerivation {
-  name = "terraspace";
-  src = ./.;
-  nativeBuildInputs = [makeWrapper];
-  dontUnpack = true;
-  installPhase = ''
-    mkdir -p $out/bin
-    makeWrapper ${gems}/bin/terraspace $out/bin/terraspace
-  '';
-}
+Ehh... Seems like there's something wrong with our `installPhase` script.
+The best way to fix this (in my honest opinion) is to find a simple enough script in the nixpkgs repo and copy it ([this](https://github.com/NixOS/nixpkgs/blob/27343d6e6b710f386aa5df63bdeb16866a782b74/pkgs/tools/misc/pws/default.nix#L2) should do it, it uses the `makeWrapper` function to do the thing that we are going to do next).
+But since this is an analysis of a packaging process, we'll try to fix this manually.
+
+### The light at the end of a tunnel
+Taking a look at the generated result, we see this:
 ```
-Building it we get:
+[nix-shell:~/.local/dev/nix-tinkering/terraspace/result/bin]$ cat terraspace
+#!/nix/store/96ky1zdkpq871h2dlk198fz0zvklr1dr-bash-5.1-p16/bin/sh -e
+exec /nix/store/l9l60bs44jgn59gya59pip2h4rbln66g-terraspace-env/bin/bundle exec /nix/store/yy9sbr2sd4qfn5fdygcqkmibscbcknhq-ruby-2.7.7/bin/ruby /nix/store/vlpslz0zpqgdn9yp019vva1jgr0rlky8-terraspace/share/terraspace/terraspace "$@"
+```
+
+There are three different nix-store paths here: `/nix/store/l9l60bs44jgn59gya59pip2h4rbln66g-terraspace-env`, `/nix/store/yy9sbr2sd4qfn5fdygcqkmibscbcknhq-ruby-2.7.7` and `/nix/store/vlpslz0zpqgdn9yp019vva1jgr0rlky8-terraspace`.
+The second one is a nix-store path for ruby 2.7.7, and the last one is the one we got running `nix-build`.
+Taking a look at `/nix/store/l9l60bs44jgn59gya59pip2h4rbln66g-terraspace-env`, we see:
+```
+[nix-shell:/nix/store/l9l60bs44jgn59gya59pip2h4rbln66g-terraspace-env]$ ls
+bin  lib
+
+[nix-shell:/nix/store/l9l60bs44jgn59gya59pip2h4rbln66g-terraspace-env/bin]$ ls -la | grep terraspace
+-r-xr-xr-x 2 root root 1242 Jan  1  1970 terraspace
+-r-xr-xr-x 2 root root 1266 Jan  1  1970 terraspace-bundler
+
+[nix-shell:/nix/store/l9l60bs44jgn59gya59pip2h4rbln66g-terraspace-env/bin]$ ./terraspace --version
+2.2.7
+```
+
+This suggests that our terraspace binary was built in the `bundlerEnv` part of the build script, and we just have to expose it in the `installPhase`:
+```sh
+mkdir -p $out/bin
+bin=$out/bin/terraspace
+cat > $bin <<EOF
+#!/bin/sh -e
+exec ${gems}/bin/terraspace "\$@"
+EOF
+chmod +x $bin
+```
+
+Building it with the new `installPhase` we get:
 ```
 [nix-shell:~/.local/dev/nix-tinkering/terraspace]$ nix-build -E '((import <nixpkgs> {}).callPackage (import ./default.nix) { })'
-this derivation will be built:
-  /nix/store/wdnm4rf8c35v28wyl2zkmcxpfnf225a9-terraspace.drv
-building '/nix/store/wdnm4rf8c35v28wyl2zkmcxpfnf225a9-terraspace.drv'...
-patching sources
-configuring
-no configure script, doing nothing
-building
-no Makefile, doing nothing
-installing
-post-installation fixup
-shrinking RPATHs of ELF executables and libraries in /nix/store/6ig2k1jrf2xygbxz9dmrwcixr4daa9gz-terraspace
-strip is /nix/store/dkw46jgi8i0bq64cag95v4ywz6g9bnga-gcc-wrapper-11.3.0/bin/strip
-stripping (with command strip and flags -S) in  /nix/store/6ig2k1jrf2xygbxz9dmrwcixr4daa9gz-terraspace/bin
-patching script interpreter paths in /nix/store/6ig2k1jrf2xygbxz9dmrwcixr4daa9gz-terraspace
-checking for references to /build/ in /nix/store/6ig2k1jrf2xygbxz9dmrwcixr4daa9gz-terraspace...
-/nix/store/6ig2k1jrf2xygbxz9dmrwcixr4daa9gz-terraspace
-
-[nix-shell:~/.local/dev/nix-tinkering/terraspace]$ ls
-default.nix  Gemfile  Gemfile.lock  gemset.nix  result  shell.nix
-
-[nix-shell:~/.local/dev/nix-tinkering/terraspace]$ result/bin/terraspace
-Usage: terraspace COMMAND [args]
-
-The available commands are listed below.
-The primary workflow commands are given first, followed by
-less common or more advanced commands.
-
-Main Commands:
-
-  terraspace all SUBCOMMAND  # all subcommands
-  terraspace build [STACK]   # Build project.
-  terraspace bundle          # Bundle with Terrafile.
-  terraspace down STACK      # Destroy infrastructure stack.
-  terraspace list            # List stacks and modules.
-  terraspace new SUBCOMMAND  # new subcommands
-  terraspace plan STACK      # Plan stack.
-  terraspace seed STACK      # Build starer seed tfvars file.
-  terraspace up STACK        # Deploy infrastructure stack.
-
-Other Commands:
-
-  terraspace clean SUBCOMMAND        # clean subcommands
-  terraspace completion *PARAMS      # Prints words for auto-completion.
-  terraspace completion_script       # Generates a script that can be eval to setup auto-completion.
-  terraspace console STACK           # Run console in built terraform project.
-  terraspace fmt                     # Run terraform fmt
-  terraspace force_unlock            # Calls terrform force-unlock
-  terraspace help [COMMAND]          # Describe available commands or one specific command
-  terraspace import STACK ADDR ID    # Import existing infrastructure into your Terraform state
-  terraspace info STACK              # Get info about stack.
-  terraspace init STACK              # Run init in built terraform project.
-  terraspace logs [ACTION] [STACK]   # View and tail logs.
-  terraspace output STACK            # Run output.
-  terraspace providers STACK         # Show providers.
-  terraspace refresh STACK           # Run refresh.
-  terraspace setup SUBCOMMAND        # setup subcommands
-  terraspace show STACK              # Run show.
-  terraspace state SUBCOMMAND STACK  # Run state.
-  terraspace summary                 # Summarize resources.
-  terraspace test                    # Run test.
-  terraspace tfc SUBCOMMAND          # tfc subcommands
-  terraspace validate STACK          # Validate stack.
-  terraspace version                 # Prints version.
-
-For more help on each command, you can use the -h option. Example:
-
-    terraspace up -h
-
-CLI Reference also available at: https://terraspace.cloud/reference/
+...
+/nix/store/4xrb026k46ql5zxqbfxm753szmclc8qa-terraspace
 
 [nix-shell:~/.local/dev/nix-tinkering/terraspace]$ result/bin/terraspace -v
 2.2.7
 ```
-Success! For real this time!
+And the thing works this time.
 
 ## Final remarks
 I hope this post was helpful to someone stuck with building a nix package.
