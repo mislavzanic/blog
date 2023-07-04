@@ -27,7 +27,7 @@ You can build those following the above instructions, or by using nix built-in m
 ## Building Terraspace
 Terraspace is a ruby package, so googling "nixos create ruby package" yields [this](https://nixos.wiki/wiki/Packaging/Ruby), so I decided to follow it.
 
-### Searching the NixOS wiki
+### Following the NixOS wiki
 The wiki gives us a `shell.nix`:
 ```nix
 with import <nixpkgs> {};
@@ -67,7 +67,7 @@ Gemfile  Gemfile.lock  gemset.nix  shell.nix
 ```
 
 Next, we create the `default.nix` file.
-Lucky for us, the wiki gives us a pretty good start, and, with some adjustments we get:
+Luckily, the wiki gives us a pretty good start, and, with some adjustments, we get:
 ```nix
 { stdenv, bundlerEnv, ruby }:
 let
@@ -138,6 +138,7 @@ Looking at `Gemfile.lock` we see:
 ```
 nokogiri (1.15.2-x86_64-linux)
   racc (~> 1.4)
+racc (1.7.1)
 ```
 Googling "nokogiri" gets us to the [rubygems site](https://rubygems.org/gems/nokogiri/versions/1.15.2).
 Here we find an error. 
@@ -164,7 +165,7 @@ Traceback (most recent call last):
 /nix/store/yy9sbr2sd4qfn5fdygcqkmibscbcknhq-ruby-2.7.7/bin/ruby: No such file or directory -- /nix/store/vlpslz0zpqgdn9yp019vva1jgr0rlky8-terraspace/share/terraspace/terraspace (LoadError)
 ```
 Ehh... Seems like there's something wrong with our `installPhase` script.
-The best way to fix this (in my honest opinion) is to find a simple enough script in the nixpkgs repo and copy it ([this](https://github.com/NixOS/nixpkgs/blob/27343d6e6b710f386aa5df63bdeb16866a782b74/pkgs/tools/misc/pws/default.nix#L2) should do it, it uses the `makeWrapper` function to do the thing that we are going to do next).
+The best way to fix this (in my opinion) is to find a simple enough script in the nixpkgs repo and copy it ([this](https://github.com/NixOS/nixpkgs/blob/27343d6e6b710f386aa5df63bdeb16866a782b74/pkgs/tools/misc/pws/default.nix#L2) should do it, it uses the `makeWrapper` function to do the thing that we are about to).
 But since this is an analysis of a packaging process, we'll try to fix this manually.
 
 ### The light at the end of a tunnel
