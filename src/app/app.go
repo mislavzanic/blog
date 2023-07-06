@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/mislavzanic/blog/src/app/posts"
-	"github.com/mislavzanic/blog/src/app/renderer"
+	"github.com/mislavzanic/blog/src/app/md2html"
 )
 
 type void struct{}
@@ -71,7 +71,7 @@ func (s Site) RenderPage(w http.ResponseWriter, path string) {
 }
 
 func render(w http.ResponseWriter, templateName, uri string, data interface{}) {
-	renderer.RenderFromTemplate(
+	md2html.RenderFromTemplate(
 		w,
 		templateName,
 		[]string{
@@ -81,9 +81,9 @@ func render(w http.ResponseWriter, templateName, uri string, data interface{}) {
 			fmt.Sprintf("%s/head.html", HTMLDIR),
 		},
 		template.FuncMap{
-			"toURL": renderer.GetUrl(uri),
-			"markDown": renderer.ToMarkdown,
-			"afterEpoch": renderer.AfterEpoch,
+			"toURL": md2html.GetUrl(uri),
+			"markDown": md2html.ToMarkdown,
+			"afterEpoch": md2html.AfterEpoch,
 		},
 		data,
 	)
