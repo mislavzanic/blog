@@ -145,7 +145,7 @@ Here we find an error.
 It seems like `bundle install` didn't add `mini_portile2` as a nokogiri dependency.
 Also, it has `1.15.2-x86_64-linux` as a version, which seems weird, let's fix this.
 This is what the nokogiri section of the `Gemfile.lock` should look like:
-```
+```lock
 nokogiri (1.15.2)
   racc (~> 1.4)
   mini_portile2 (~> 2.8.2)
@@ -159,14 +159,26 @@ We remove the old `gemset.nix` file and run `bundix` and try to build terraspace
 /nix/store/vlpslz0zpqgdn9yp019vva1jgr0rlky8-terraspace
 ```
 Success! Let's run it!
-```
+```sh
 [nix-shell:~/.local/dev/nix-tinkering/terraspace]$ result/bin/terraspace -v
 Traceback (most recent call last):
 /nix/store/yy9sbr2sd4qfn5fdygcqkmibscbcknhq-ruby-2.7.7/bin/ruby: No such file or directory -- /nix/store/vlpslz0zpqgdn9yp019vva1jgr0rlky8-terraspace/share/terraspace/terraspace (LoadError)
 ```
 Ehh... Seems like there's something wrong with our `installPhase` script.
-The best way to fix this (in my opinion) is to find a simple enough script in the nixpkgs repo and copy it ([this](https://github.com/NixOS/nixpkgs/blob/27343d6e6b710f386aa5df63bdeb16866a782b74/pkgs/tools/misc/pws/default.nix#L2) should do it, it uses the `makeWrapper` function to do the thing that we are about to).
-But since this is an analysis of a packaging process, we'll try to fix this manually.
+The best way to fix this (in my opinion) is to find a simple enough script in the nixpkgs repo, but since this is an analysis of a packaging process, we'll try to fix this manually.
+
+:::{#info}
+:information_source: 
+[This](https://github.com/NixOS/nixpkgs/blob/27343d6e6b710f386aa5df63bdeb16866a782b74/pkgs/tools/misc/pws/default.nix#L2)
+is a good example of the same thing we are trying to do.
+It uses a `makeWrapper` [function](https://gist.github.com/CMCDragonkai/9b65cbb1989913555c203f4fa9c23374) defined [here](https://gist.github.com/CMCDragonkai/9b65cbb1989913555c203f4fa9c23374) which, among other things, does what we are about to do.
+We would use `makeWrapper` like this:
+```sh
+mkdir -p $out/bin
+makeWrapper ${rubyEnv}/bin/terraspace $out/bin/terraspace
+```
+and this would make our build work.
+:::
 
 ### The light at the end of a tunnel
 Taking a look at the generated result, we see this:

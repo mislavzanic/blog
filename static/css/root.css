@@ -31,10 +31,12 @@
   --darkreader-text--modus-themes-color-blue-alt: #69b4ff;
   --darkreader-text--modus-themes-color-cyan: #38fffc;
   --darkreader-text--modus-themes-color-calm: #f8b4eb;
+  --darkreader-text--modus-themes-color-bg-lavander: #38325c; 
   --darkreader-text--modus-themes-color-baselinkfg: var(--darkreader-text--modus-themes-color-blue);
   --darkreader-text--modus-themes-color-baselinkfgalt: var(--darkreader-text--modus-themes-color-cyan);
   --darkreader-bg--modus-themes-color-baselinkfghover: var(--darkreader-bg--modus-themes-color-blue-alt);
   --code-bg: #1f1f24;
+  --aside-bg: #303030;
 
   /* --proportional-fonts: "Source Sans Pro",sans-serif; */
   /* --serif-fonts: "Source Serif Pro",serif; */
