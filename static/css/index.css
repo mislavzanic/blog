@@ -36,12 +36,12 @@ pre {
   max-width: 58rem;
   margin: auto;
   padding: 2rem;
-  font-family: var(--proportional-fonts);
+    font-family: var(--serif-fonts);
 }
 
 header {
   padding: 1em;
-  font-family: var(--proportional-fonts);
+    font-family: var(--serif-fonts);
 }
 
 footer {
@@ -51,14 +51,14 @@ footer {
 
   text-align: center;
   margin: 2rem auto;
-  font-family: var(--proportional-fonts);
+    font-family: var(--serif-fonts);
 }
 
 .post-card {
     list-style-type: none;
     align-items: left;
     text-align: center;
-    font-family: var(--proportional-fonts);
+    font-family: var(--serif-fonts);
 }
 
 .postLink {
@@ -104,7 +104,8 @@ p {
 
 .tag {
     color: var(--darkreader-text--modus-themes-color-calm);
-    font-size: 0.8em;
+    text-decoration: none;
+    font-size: 0.87em;
 }
 
 .tag::before {
@@ -187,4 +188,22 @@ a:hover {
   display: block;
   max-width: 20rem;
   max-height: 10rem;
+}
+
+blockquote {
+  font-family: var(--proportional-fonts);
+  font-style: italic;
+  position: relative;
+  padding-left: 1.5rem;
+  margin-left: 1rem;
+  overflow: hidden;
+}
+
+blockquote:after {
+  content: ">\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>";
+  white-space: pre;
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 20px;
 }

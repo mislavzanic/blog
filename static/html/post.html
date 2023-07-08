@@ -14,7 +14,7 @@
             {{ end }}
             <ul class="tagList">
                 {{ range .MetaData.Tags }}
-                <i><a href="/by-tag/{{ . }}" class="tag">{{.}}</a></i>
+                <a href="/by-tag/{{ . }}" class="tag">{{.}}</a>
                 {{ end }}
             </ul>
             {{ if ne .MetaData.Title "Hello there!" }}
