@@ -26,9 +26,9 @@ Since we only need the new position of the card denoted by $x$ we can try to imp
 
 *Deal into new stack* can be implemented as $$f(x) = p - 1 - x.$$
 
-*Cut N* can be implemented as $$f(x, N) = (x - N)\; (mod\; p).$$
+*Cut N* can be implemented as $$f(x, N) = (x - N)\\; (mod\\; p).$$
 
-*Deal with increment N* can be implemented as $$f(x, N) = (x \cdot N)\; (mod\; p).$$
+*Deal with increment N* can be implemented as $$f(x, N) = (x \cdot N)\\; (mod\\; p).$$
 
 Or, in python:
 ```python
@@ -105,7 +105,7 @@ in which we used the formula for a finite geometric series.
 
 Since the whole function is calculated modulo $119315717514047$ denoted as $p$, we can write our function like this:
 $$
-f^{(m)}(x) = (a^{m} \; (mod \; p))x + b((a^{m}\; (mod\; p)) - 1) \cdot ((a - 1)^{-1}\; (mod\; p)).
+f^{(m)}(x) = (a^{m} \\; (mod \\; p))x + b((a^{m}\\; (mod\\; p)) - 1) \cdot ((a - 1)^{-1}\\; (mod\\; p)).
 $$
 
 Great! Now we know how to calculate the new position of a card with a number $n \in \\{0,\ldots,119315717514046\\}$.
@@ -146,7 +146,7 @@ As you can see, we start with constants $0$ and $1$ and we add/multiply them eac
 
 Now, if our shuffle process is a function of shape $f(x) = ax + b$, then the inverse if of a shape:
 $$
-f^{-1}(x) = (a^{-1}\; (mod \; p))x + (-b \cdot a^{-1}\; (mod\; p)),
+f^{-1}(x) = (a^{-1}\\; (mod \\; p))x + (-b \cdot a^{-1}\\; (mod\\; p)),
 $$
 or in python:
 ```python
