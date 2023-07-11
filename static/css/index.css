@@ -207,3 +207,21 @@ blockquote:after {
   left: 0;
   line-height: 20px;
 }
+
+hr {
+  position: relative;
+  height: 20px;
+  overflow: hidden;
+  border: 0;
+  margin: 20px 0;
+}
+
+hr::after {
+  content: "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 20px;
+  width: 100%;
+  word-wrap: break-word;
+}

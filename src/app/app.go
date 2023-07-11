@@ -21,9 +21,10 @@ type Site struct {
 }
 
 const (
-	HTMLDIR  = "static/html"
-	CSSDIR   = "static/css"
-	JSDIR    = "static/js"
+	HTMLDIR   = "static/html"
+	CSSDIR    = "static/css"
+	JSDIR     = "static/js"
+	IMGDIR    = "static/img"
 	BLOGDIR   = "webContent/blog"
 	ABOUTPAGE = "webContent/about/about.md"
 	PROJDIR   = "webContent/projects"
